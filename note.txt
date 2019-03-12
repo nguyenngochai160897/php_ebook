@@ -1,0 +1,17 @@
+chú ý dùng __DIR__ khi required
+
+model : 
+    Data related logic
+    Interaction with db
+    Communicates with controller
+controller: 
+    Receive input (form, url)
+    Process request
+    Handle valid
+    Gets data from model
+    Passes data to view  
+view:   
+    template engine
+    usually consist of HTML/consist
+    UI
+    Communicates controller 
