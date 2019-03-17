@@ -13,9 +13,6 @@
             $query = "INSERT INTO ".$this->table.
                     " SET ". "name = N'" .$this->name."'";
             $result = mysqli_query($this->conn, $query);
-            if($result){
-                return json_encode(array("status"=>"success"));
-            }
         }
 
         function update(){
@@ -23,10 +20,7 @@
                     " SET "."name = N'".$this->name."'".
                     " WHERE "."id = ".$this->id;
             $result = mysqli_query($this->conn, $query);
-            
-            if($result){
-                return json_encode(array("status" => "success", "affected_rows" => mysqli_affected_rows($this->conn)));
-            }
+            return mysqli_affected_rows($this->conn);
         }
     }
 

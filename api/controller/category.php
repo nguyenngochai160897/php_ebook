@@ -5,27 +5,56 @@
     class CategoryCtr{
         function fetch($id = false){
             $category = new Category();
-            if($id != false){
-                if(is_numeric($id)){
-                    $category->id = $id;
-                    return $category->get();
-                }
+            
+            if($id != false && !is_numeric($id)){
+                return json_encode(
+                    array("message" => "id have to be number.", "status" =>"fail")
+                );
+            }
+            else if($id != false && is_numeric($id)){
+                $category->id = $id;
+                $data = $category->get();
+                return json_encode( array(
+                    "record" => $data,
+                    "status" => "success"
+                ));
             }
             else{
-                return $category->gets();
+                $data = $category->gets();
+                return json_encode(
+                    array(
+                        "records" => $data,
+                        "status" => "success"
+                    )
+                    );
             }
         }
 
         function create($category){
-           return $category->create();
+            $category->create();
+            return json_encode(array(
+                "status" => "success"
+            ));
         }
 
         function update($category){
-            return $category->update();
+            $affectRow = $category->update();
+            if($affectRow > 0){
+                return json_encode(array(
+                    "status" => "success"
+                ));
+            }
+            return json_encode(array("status" => "review",  "message" => "not row affect"));
         }
 
         function delete($category){
-            return $category->delete();
+            $affectRow = $category->delete();
+            if($affectRow > 0){
+                return json_encode(array(
+                    "status" => "success"
+                ));
+            }
+            return json_encode(array("status" => "review",  "message" => "not row affect"));
         }
     }
 ?>

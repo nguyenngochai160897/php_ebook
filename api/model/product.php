@@ -1,7 +1,9 @@
 <?php
-    require("./object.php");
+    require_once __DIR__."/object.php";
+
     class Product extends Objects{
-        public $category_id, $name, $price, $image, $discount;
+        public $title, $publisher_name, $author_name, $publish_year, $category_id, $price, $picture,
+            $num_existed;
         public $table = "products";
         public $conn;
 
@@ -12,28 +14,58 @@
         public function create(){
             $query = "INSERT INTO ".$this->table.
                     " SET ". "category_id = '" .$this->category_id."',".
-                            " name = '".$this->name."',".
+                            " title = '".$this->title."',".
+                            " publisher_name = '".$this->publisher_name."',".
+                            " author_name = '".$this->author_name."',".
                             " price = '".$this->price."',".
-                            " image = '".$this->image."',".
-                            " discount = '".$this->discount."'";
+                            " picture = '".$this->picture."',".
+                            " publish_year = '".$this->publish_year."'";
             $result = mysqli_query($this->conn, $query);
-            if($result){
-                return json_encode(array("status"=>"success"));
-            }
         }
 
         function update(){
             $query = "UPDATE ".$this->table.
-                    " SET "."name = '".$this->name."'".
-                    " WHERE "."id = ".$this->id;
+                    " SET ". "category_id = '" .$this->category_id."',".
+                    " title = '".$this->title."',".
+                    " publisher_name = '".$this->publisher_name."',".
+                    " author_name = '".$this->author_name."',".
+                    " price = '".$this->price."',".
+                    " picture = '".$this->picture."',".
+                    " publish_year = '".$this->publish_year."'".
+                    " WHERE "."id =".$this->id;
             $result = mysqli_query($this->conn, $query);
-            if($result){
-                return json_encode(array("status"=>"success"));
+            return mysqli_affected_rows($this->conn);
+        }
+
+        function fetchAllByCategory(){
+            $father_table = "categories";
+           
+            $query = "SELECT products.*, categories.name as category_name FROM ".$this->table.
+                    " left JOIN categories ON products.category_id = categories.id";
+            $result = mysqli_query($this->conn, $query);
+            $arr = array();
+            if(mysqli_num_rows($result) > 0){
+                while($row = mysqli_fetch_assoc($result)){
+                    array_push($arr, $row);
+                }
             }
+            return $arr;
+        }
+
+        function fetchByCategory(){
+            $father_table = "categories";
+            $query = "SELECT products.*, categories.name as category_name FROM ".$this->table.
+                    " left JOIN categories ON products.category_id = categories.id ".
+                    "WHERE products.id = ".$this->id;
+            $result = mysqli_query($this->conn, $query);
+            $arr = array();
+            if(mysqli_num_rows($result) > 0){
+                $row = mysqli_fetch_assoc($result);
+                array_push($arr, $row);
+            }
+            return $arr;
         }
 
     }
-    $p = new Product();
-    $p->id = 1;
-    echo $p->get();
+
 ?>

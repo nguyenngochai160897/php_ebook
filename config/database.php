@@ -6,7 +6,7 @@
                 "DB_HOST" => 'localhost',
                 "DB_USER" => 'root',
                 "DB_PASSWORD" => "",
-                "DB_NAME" => "project_php",
+                "DB_NAME" => "e-book",
             );
             $this->conn = mysqli_connect( $db['DB_HOST'], $db['DB_USER'], $db['DB_PASSWORD'], $db['DB_NAME']);
             mysqli_set_charset($this->conn,"utf8");

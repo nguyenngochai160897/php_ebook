@@ -1,23 +1,36 @@
 <?php
-    require_once  __DIR__."/controller/category.php";
-    require_once  __DIR__."/model/category.php";
-    require_once  __DIR__."";
+    require_once __DIR__."/controller/category.php";
+    require_once __DIR__."/model/category.php";
+    require_once __DIR__."/../config/helper.php";
+
     $method = $_SERVER['REQUEST_METHOD'];
     $categoryCtr = new CategoryCtr();
 
+    //retrieve category
     if($method == "GET"){
+        //retrieve a category
         if(isset($_GET['id'])){
             echo $categoryCtr->fetch($_GET['id']);
+            
         }
-        else if(isset($_GET['page']) && isset($_GET['limit'])){
-            echo $_GET['page'];
-        }
+        //retrieve all categories
         else{
             echo $categoryCtr->fetch();   
         }
     }
+    //store a category
     else if($method == "POST"){
-        if(!empty(trim($_POST['name']))){
+        //check admin
+        session_start();
+        if(checkSession() == false || checkSession() == "customer"){
+            echo json_encode(array(
+                "message" => "not auth",
+                "status" => "fail"
+            ));
+            return;
+        }
+        
+        if(isset($_POST['name']) && !empty(trim($_POST['name'])) ){
             $category = new Category();
             $category->name = $_POST['name'];
             echo $categoryCtr->create($category);
@@ -26,10 +39,21 @@
             echo json_encode(array("message" => "invalid input", "status" => "fail"));
         }
     }
+    //update a category
     else if($method == "PUT"){
+        //check admin
+        session_start();
+        if(checkSession() == false || checkSession() == "customer"){
+            echo json_encode(array(
+                "message" => "not auth",
+                "status" => "fail"
+            ));
+            return;
+        }
+        
         parse_str(file_get_contents('php://input'), $_PUT);
        
-        if(empty($_PUT['id']) || empty(trim($_PUT['name']))){
+        if(!isset($_PUT['name']) || !isset($_PUT['id']) || empty($_PUT['id']) || empty(trim($_PUT['name']))){
             echo json_encode(array("message" => "invalid input", "status" => "fail"));
         }
         else{
@@ -40,9 +64,20 @@
             echo $categoryCtr->update($category);
         }
     }
+    ////delete a category
     else if($method == "DELETE"){
+        //check admin
+        session_start();
+        if(checkSession() == false || checkSession() == "customer"){
+            echo json_encode(array(
+                "message" => "not auth",
+                "status" => "fail"
+            ));
+            return;
+        }
+        
         parse_str(file_get_contents('php://input'), $_DELETE);
-        if(empty($_DELETE['id'])){
+        if(isset($_POST['id']) ||empty($_DELETE['id'])){
             echo json_encode(array("message" => "invalid input", "status" => "fail"));
         }
         else{
