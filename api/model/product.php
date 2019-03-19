@@ -14,12 +14,13 @@
         public function create(){
             $query = "INSERT INTO ".$this->table.
                     " SET ". "category_id = '" .$this->category_id."',".
-                            " title = '".$this->title."',".
-                            " publisher_name = '".$this->publisher_name."',".
-                            " author_name = '".$this->author_name."',".
+                            " title = N'".$this->title."',".
+                            " publisher_name = N'".$this->publisher_name."',".
+                            " author_name = N'".$this->author_name."',".
                             " price = '".$this->price."',".
                             " picture = '".$this->picture."',".
-                            " publish_year = '".$this->publish_year."'";
+                            " publish_year = '".$this->publish_year."'".
+                            " num_existed = '".$this->num_existed."'";
             $result = mysqli_query($this->conn, $query);
         }
 
@@ -31,7 +32,8 @@
                     " author_name = '".$this->author_name."',".
                     " price = '".$this->price."',".
                     " picture = '".$this->picture."',".
-                    " publish_year = '".$this->publish_year."'".
+                    " publish_year = '".$this->publish_year."',".
+                    " num_existed = '".$this->num_existed."'".
                     " WHERE "."id =".$this->id;
             $result = mysqli_query($this->conn, $query);
             return mysqli_affected_rows($this->conn);

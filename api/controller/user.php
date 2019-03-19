@@ -4,7 +4,6 @@
     class UserCtr{
         function login($user){
             $data = $user->login();
-            var_dump($data);
             if(isset($data['status']) && $data['status'] == "fail"){
                 return $user->login();
             }
@@ -24,7 +23,7 @@
             foreach($data as $d) {
                 if($d['email'] == $user->email){
                     return json_encode(array(
-                        "message" =>"Email had already exist",
+                        "message" =>"email had already exist",
                         "status" => "fail"
                     ));
                 }
@@ -34,7 +33,7 @@
             $email = ($user->email);
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 return json_encode(array(
-                    "message" =>"Invalid email format",
+                    "message" =>"invalid email format",
                     "status" => "fail"
                 )); 
             }

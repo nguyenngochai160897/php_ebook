@@ -79,5 +79,8 @@
             $product->id = $_DELETE['id'];
             echo $productCtr->delete($product);
         }
-   }
+    }
+    else{
+        echo "Not exist method is '$method'";
+    }
 ?>
