@@ -9,6 +9,7 @@
             }
             else{
                 // establish session
+                sessionStart();
                 setUpSession($data['account_type'], $data['id']);
                 return json_encode(array(
                     "message" => "login success",

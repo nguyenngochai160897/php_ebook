@@ -7,7 +7,7 @@
     //signup just for customer
     if($method == "POST"){
         if(!isset($_POST['email']) || !isset($_POST['password']) ||empty(trim($_POST['email'])) || empty(trim($_POST['password'])) 
-            || !isset($_POST['phone']) || !isset($_POST['first_name']) || !isset($_POST['last_name']) ){
+            || !isset($_POST['first_name']) || !isset($_POST['last_name']) ){
             echo json_encode(array(
                 "message" => "invalid input",
                 "status" => "fail"
@@ -18,7 +18,6 @@
             $user = new User();
             $user->email = $_POST['email'];
             $user->password = $_POST['password'];
-            $user->phone = $_POST['phone'];
             $user->first_name = $_POST['first_name'];
             $user->last_name = $_POST['last_name'];
             $user->account_type = "customer";

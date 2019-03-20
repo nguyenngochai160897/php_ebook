@@ -4,6 +4,7 @@
     require_once __DIR__."/../config/helper.php";
     require_once __DIR__."/model/product.php";
 
+    sessionStart();
     $method = $_SERVER['REQUEST_METHOD'];
     $orderProductCtr = new OrderProductCtr();
     $orderCtr = new OrderCtr();
@@ -11,7 +12,6 @@
     //get all order (transaction history) -> shopping cart
     if($method == "GET"){
         //check auth
-        session_start();
         if(checkSession() == false){
             echo json_encode(array(
                 "message" => "not auth",
@@ -30,7 +30,6 @@
     else if($method == "POST"){
         
         //check auth
-        session_start();
         if(checkSession() == false){
             echo json_encode(array(
                 "message" => "not auth",

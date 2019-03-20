@@ -1,14 +1,22 @@
 <?php
     require_once __DIR__."/controller/product.php";
     require_once __DIR__."/model/product.php";
- 
+    require_once __DIR__."/../config/helper.php";
+    
+    sessionStart();
     $method = $_SERVER['REQUEST_METHOD'];
- 
     $productCtr = new ProductCtr();
- 
     $target_dir = __DIR__."/../uploads/";
 
     if($method == "POST"){
+        //check admin
+        if(checkSession() == false || checkSession() == "customer"){
+            echo json_encode(array(
+                "message" => "not auth",
+                "status" => "fail"
+            ));
+            return;
+        }
         if(!isset($_POST['category_id']) || empty(trim($_POST['category_id']))
             ||!isset($_POST['id']) || empty(trim($_POST['id']))
             ||!isset($_POST['title']) || empty(trim($_POST['title']))

@@ -16,8 +16,13 @@
         return $err;
     }
     
+    function sessionStart(){
+        if(!isset($_SESSION)){
+            session_start();
+       }
+    }
+
     function setUpSession($account_type, $userId){
-        session_start();
         $_SESSION['login'] = $account_type;
         $_SESSION['userId'] = $userId;
     }

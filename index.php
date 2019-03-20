@@ -1,5 +1,6 @@
 <?php
-     session_start();
-     // $_SESSION['login'] = "admin";
-     echo $_SESSION['login'];
+     if(!isset($_SESSION)){
+          session_start();
+     }
+     
 ?>

@@ -19,7 +19,7 @@
                             " author_name = N'".$this->author_name."',".
                             " price = '".$this->price."',".
                             " picture = '".$this->picture."',".
-                            " publish_year = '".$this->publish_year."'".
+                            " publish_year = '".$this->publish_year."',".
                             " num_existed = '".$this->num_existed."'";
             $result = mysqli_query($this->conn, $query);
         }
@@ -57,7 +57,7 @@
         function fetchByCategory(){
             $father_table = "categories";
             $query = "SELECT products.*, categories.name as category_name FROM ".$this->table.
-                    " left JOIN categories ON products.category_id = categories.id ".
+                    " JOIN categories ON products.category_id = categories.id ".
                     "WHERE products.id = ".$this->id;
             $result = mysqli_query($this->conn, $query);
             $arr = array();

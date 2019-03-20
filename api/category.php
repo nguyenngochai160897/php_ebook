@@ -3,6 +3,7 @@
     require_once __DIR__."/model/category.php";
     require_once __DIR__."/../config/helper.php";
 
+    sessionStart();
     $method = $_SERVER['REQUEST_METHOD'];
     $categoryCtr = new CategoryCtr();
 
@@ -21,7 +22,6 @@
     //store a category
     else if($method == "POST"){
         //check admin
-        session_start();
         if(checkSession() == false || checkSession() == "customer"){
             echo json_encode(array(
                 "message" => "not auth",
@@ -42,7 +42,6 @@
     //update a category
     else if($method == "PUT"){
         //check admin
-        session_start();
         if(checkSession() == false || checkSession() == "customer"){
             echo json_encode(array(
                 "message" => "not auth",
@@ -67,7 +66,6 @@
     ////delete a category
     else if($method == "DELETE"){
         //check admin
-        session_start();
         if(checkSession() == false || checkSession() == "customer"){
             echo json_encode(array(
                 "message" => "not auth",

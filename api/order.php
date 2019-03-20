@@ -1,14 +1,14 @@
 <?php
     require_once __DIR__."/controller/order.php";
     require_once __DIR__."/../config/helper.php";
-
+    
+    sessionStart();
     $method = $_SERVER['REQUEST_METHOD'];
     $orderCtr = new OrderCtr();
 
     //for admin
     if($method == "GET"){
         //check auth
-        session_start();
         if(checkSession() == false || checkSession() == "customer"){
             echo json_encode(array(
                 "message" => "not auth",
@@ -28,28 +28,7 @@
         
     }
 
-    // //create a new order
-    // else if($method == "POST"){
-    //     //check auth
-    //     session_start();
-    //     if(checkSession() == false){
-    //         echo json_encode(array(
-    //             "message" => "not auth",
-    //             "status" => "fail"
-    //         ));
-    //         return;
-    //     }
-
-    //     if(checkSession() == "customer"){
-    //         //total_price = ?
-    //         $order = new Order();
-    //         $order->user_id = $_SESSION['userId'];
-    //         $order->deliver_status = 0;
-    //         $order->total_price = 0;
-    //         $orderCtr->create($order);
-    //         echo json_encode(array("message" => "order is created success", "status" => "success"));
-    //     }
-    // }
+    
 
     else{
         echo json_encode(array(

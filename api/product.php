@@ -1,7 +1,9 @@
 <?php
     require_once __DIR__."/controller/product.php";
     require_once __DIR__."/model/product.php";
-
+    require_once __DIR__."/../config/helper.php";
+   
+    sessionStart();
     $method = $_SERVER['REQUEST_METHOD'];
 
     $productCtr = new ProductCtr();
@@ -20,6 +22,15 @@
     }
     //create a product
     else if($method == "POST"){
+        //check admin
+        if(checkSession() == false || checkSession() == "customer"){
+            echo json_encode(array(
+                "message" => "not auth",
+                "status" => "fail"
+            ));
+            return;
+        }
+
         if(!isset($_POST['category_id']) || empty(trim($_POST['category_id']))
             ||!isset($_POST['title']) || empty(trim($_POST['title']))
             ||!isset($_POST['publisher_name']) || empty(trim($_POST['publisher_name']))
@@ -70,6 +81,14 @@
     
     //delete a product
     else if($method == "DELETE"){
+        //check admin
+        if(checkSession() == false || checkSession() == "customer"){
+            echo json_encode(array(
+                "message" => "not auth",
+                "status" => "fail"
+            ));
+            return;
+        }
         parse_str(file_get_contents('php://input'), $_DELETE);
         if(!isset($_DELETE['id']) || empty(trim($_DELETE['id']))){
             echo json_encode(array("message" => "invalid input", "status" => "fail"));            

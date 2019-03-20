@@ -9,6 +9,18 @@
             parent::__construct();
         }
 
+        function get(){
+            $query = "SELECT categories.name,products.* FROM categories, products WHERE categories.id = products.category_id AND categories.id =".$this->id;
+            $result = mysqli_query($this->conn, $query);
+            $arr = array();
+            if(mysqli_num_rows($result) > 0){
+                while($row = mysqli_fetch_assoc($result)){
+                    array_push($arr, $row);
+                }
+            }
+            return ($arr);
+        }
+
         public function create(){
             $query = "INSERT INTO ".$this->table.
                     " SET ". "name = N'" .$this->name."'";
