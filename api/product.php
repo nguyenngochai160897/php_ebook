@@ -37,6 +37,7 @@
             ||!isset($_POST['author_name']) || empty(trim($_POST['author_name']))
             ||!isset($_POST['publish_year']) || empty(trim($_POST['publish_year']))
             ||!isset($_POST['price']) || empty(trim($_POST['price']) || !is_numeric($_POST['price']))
+            ||!isset($_POST['description']) || empty(trim($_POST['description']))
             ||!isset($_POST['num_existed']) || empty(trim($_POST['num_existed'])) || !is_numeric($_POST['num_existed'])){
                 echo json_encode(array("message" => "invalid input", "status" => "fail"));
                 return;
@@ -73,6 +74,7 @@
             $product->author_name = $_POST['author_name'];
             $product->publish_year = $_POST['publish_year'];
             $product->price = $_POST['price'];
+            $product->description = $_POST['description'];
             $product->picture = $_FILES["picture"]["name"];
             $product->num_existed = $_POST['num_existed'];
             echo $productCtr->create($product);

@@ -51,6 +51,8 @@
                     "deliver_status = '".$this->deliver_status."', ".
                     "total_price = '".$this->total_price."'";
             $result = mysqli_query($this->conn, $query);
+            $query = "SELECT id FROM ".$this->table." WHERE user_id=".$this->user_id.
+                    " AND status_deliver=0";
             $order_id = mysqli_insert_id($this->conn);
             return $order_id;
         }
@@ -64,13 +66,13 @@
                     "total_price = '".$this->total_price."'".
                     " WHERE id = ".$this->id;
             $result = mysqli_query($this->conn, $query);
-
             return mysqli_affected_rows($this->conn);
         }
 
         function updateTotalPrice(){
             $query = "UPDATE orders
-                SET total_price = (SELECT SUM(price) FROM orders_products WHERE orders_products.order_id = orders.id)";
+                SET total_price = (SELECT SUM(price) FROM orders_products WHERE orders_products.order_id = orders.id AND 
+                orders.deliver_status=0 AND orders.user_id=".$this->user_id.")";
             $result = mysqli_query($this->conn, $query);
             return mysqli_affected_rows($this->conn);
         }

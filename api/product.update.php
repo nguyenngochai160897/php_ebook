@@ -45,6 +45,7 @@
                 $product->author_name = $_POST['author_name'];
                 $product->publish_year = $_POST['publish_year'];
                 $product->price = $_POST['price'];
+                $product->description = $_POST['description'];
                 $product->picture = $data[0]['picture'];
                 $product->num_existed = $_POST['num_existed'];
                 $product->id= $_POST['id'];
@@ -78,6 +79,7 @@
             $product->author_name = $_POST['author_name'];
             $product->publish_year = $_POST['publish_year'];
             $product->price = $_POST['price'];
+            $product->description = $_POST['description'];
             $product->picture = $_FILES["picture"]["name"];
             $product->num_existed = $_POST['num_existed'];
             echo $productCtr->update($product);

@@ -77,7 +77,7 @@
                 $op->price = $existProduct['price'] + $_POST['num_of_product'] * $priceAProduct;
                 $op->order_id = $_SESSION['orderId'];
                 $op->product_id = $_POST['product_id'];
-                $orderProductCtr->update($op);
+                $orderProductCtr->update($op, $_SESSION['userId']);
             }
             else{
                 //create a order_product
@@ -94,6 +94,63 @@
             $order->updateTotalPrice(); //ship = 0 discount = 0...
             echo json_encode(array("message" => "order_product is created", "stauts" => "sucess"));
         }
+    }
+
+    //delete a item in shopping cart for side customer
+    else if($method == "DELETE"){
+        //check auth
+        if(checkSession() == false){
+            echo json_encode(array(
+                "message" => "not auth",
+                "status" => "fail"
+            ));
+            return;
+        }
+
+        parse_str(file_get_contents('php://input'), $_DELETE);
+        if(!isset($_DELETE['product_id']) || empty(trim($_DELETE['product_id']))){
+            echo json_encode(array(
+                "message" => "invalid input",
+                "status" => "fail"
+            ));
+        }    
+        else{
+            $orderProduct = new OrderProduct();
+            $orderProduct->product_id = $_DELETE['product_id'];
+            $orderProductCtr->delete($orderProduct, $_SESSION['userId']);
+            $order = new Order();
+            $order->user_id = $_SESSION['userId'];
+            $order->updateTotalPrice();
+            echo json_encode(array("message" => "delete success", "status" => "success"));
+        }    
+    }
+
+    //update a item in shopping cart for side customer
+    else if($method == "PUT"){
+        //check auth
+        if(checkSession() == false){
+            echo json_encode(array(
+                "message" => "not auth",
+                "status" => "fail"
+            ));
+            return;
+        }
+        parse_str(file_get_contents('php://input'), $_PUT);
+        if(!isset($_PUT['id']) || empty(trim($_PUT['id']))){
+            echo json_encode(array(
+                "message" => "invalid input",
+                "status" => "fail"
+            ));
+        }    
+        else{
+            $orderProduct = new OrderProduct();
+            $orderProduct->id = $_PUT['id'];
+            $orderProductCtr->update($orderProduct, $_SESSION['userId']);
+            $order = new Order();
+            $order->user_id = $_SESSION['userId'];
+            $order->updateTotalPrice();
+            echo json_encode(array("message" => "delete success", "status" => "success"));
+        }    
     }
     else{
         echo json_encode(array(

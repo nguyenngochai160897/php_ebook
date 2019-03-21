@@ -3,7 +3,7 @@
 
     class Product extends Objects{
         public $title, $publisher_name, $author_name, $publish_year, $category_id, $price, $picture,
-            $num_existed;
+            $num_existed, $description;
         public $table = "products";
         public $conn;
 
@@ -20,6 +20,7 @@
                             " price = '".$this->price."',".
                             " picture = '".$this->picture."',".
                             " publish_year = '".$this->publish_year."',".
+                            " description = '".$this->description."',".
                             " num_existed = '".$this->num_existed."'";
             $result = mysqli_query($this->conn, $query);
         }
@@ -27,12 +28,13 @@
         function update(){
             $query = "UPDATE ".$this->table.
                     " SET ". "category_id = '" .$this->category_id."',".
-                    " title = '".$this->title."',".
-                    " publisher_name = '".$this->publisher_name."',".
-                    " author_name = '".$this->author_name."',".
+                    " title = N'".$this->title."',".
+                    " publisher_name = N'".$this->publisher_name."',".
+                    " author_name = N'".$this->author_name."',".
                     " price = '".$this->price."',".
                     " picture = '".$this->picture."',".
                     " publish_year = '".$this->publish_year."',".
+                    " description = N'".$this->description."',".
                     " num_existed = '".$this->num_existed."'".
                     " WHERE "."id =".$this->id;
             $result = mysqli_query($this->conn, $query);
@@ -43,7 +45,7 @@
             $father_table = "categories";
            
             $query = "SELECT products.*, categories.name as category_name FROM ".$this->table.
-                    " left JOIN categories ON products.category_id = categories.id";
+                    " JOIN categories ON products.category_id = categories.id";
             $result = mysqli_query($this->conn, $query);
             $arr = array();
             if(mysqli_num_rows($result) > 0){

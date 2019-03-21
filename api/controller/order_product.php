@@ -21,8 +21,20 @@
             return false;
         }
 
-        function update($orderProduct){
-            return $orderProduct->update();
+        function update($orderProduct, $userId){
+            $affectRow = $orderProduct->updateOrderProduct($userId);
+            if($affectRow > 0){
+                return json_encode(array(
+                    "status" => "success"
+                ));
+            }
+            return json_encode(array("status" => "review",  "message" => "not row affect"));
+        
+        }
+
+        function delete($orderProduct, $userId){
+            $affectRow = $orderProduct->deleteOrderProduct($userId);
+            
         }
 
         //If deliver_status = 0 exists, continue with the old order_id
