@@ -41,9 +41,15 @@
             return mysqli_affected_rows($this->conn);
         }
 
+        function changeNumProductExist(){
+            $query = "UPDATE ".$this->table.
+                    " SET num_existed = '".$this->num_existed."'".
+                    " WHERE "."id =".$this->id;
+            $result = mysqli_query($this->conn, $query);
+            return mysqli_affected_rows($this->conn);
+        }
         function fetchAllByCategory(){
             $father_table = "categories";
-           
             $query = "SELECT products.*, categories.name as category_name FROM ".$this->table.
                     " JOIN categories ON products.category_id = categories.id";
             $result = mysqli_query($this->conn, $query);

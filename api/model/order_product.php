@@ -32,6 +32,8 @@
             return mysqli_affected_rows($this->conn);
         }
 
+        
+        
         function deleteOrderProduct($userId){
             $query = "DELETE FROM orders_products WHERE product_id = ".$this->product_id.
                 " AND order_id = (SELECT orders.id FROM orders WHERE user_id = ".$userId.

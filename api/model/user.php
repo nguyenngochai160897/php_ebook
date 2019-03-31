@@ -48,7 +48,7 @@
             $result = mysqli_query($this->conn, $query);
             
             if(mysqli_num_rows($result) == 0){
-                return json_encode(array(
+                return (array(
                     "status" => "fail",
                     "message" => "The email did not exist"
                 ));
@@ -56,7 +56,7 @@
             else{
                 $row = mysqli_fetch_assoc($result);
                 if(!password_verify($this->password, $row['password'])){
-                    return json_encode(array(
+                    return (array(
                         "message" => "wrong the password",
                         "status" => "fail"
                     ));

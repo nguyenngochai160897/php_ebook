@@ -48,7 +48,7 @@
 
         //delete a object 
         function delete(){
-            $query = "DELETE FROM ".$this->table." WHERE id = ".$this->id;
+            $query = "DELETE FROM ".$this->table." WHERE id=".$this->id;
             $result = mysqli_query($this->conn, $query);
             return mysqli_affected_rows($this->conn);
         }

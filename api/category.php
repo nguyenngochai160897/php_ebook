@@ -75,7 +75,7 @@
         }
         
         parse_str(file_get_contents('php://input'), $_DELETE);
-        if(isset($_POST['id']) ||empty($_DELETE['id'])){
+        if(!isset($_DELETE['id']) ||empty($_DELETE['id'])){
             echo json_encode(array("message" => "invalid input", "status" => "fail"));
         }
         else{

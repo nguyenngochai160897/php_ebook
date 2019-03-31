@@ -10,7 +10,7 @@
         }
 
         function get(){
-            $query = "SELECT categories.name,products.* FROM categories, products WHERE categories.id = products.category_id AND categories.id =".$this->id;
+            $query = "SELECT categories.* FROM categories WHERE categories.id =".$this->id;
             $result = mysqli_query($this->conn, $query);
             $arr = array();
             if(mysqli_num_rows($result) > 0){

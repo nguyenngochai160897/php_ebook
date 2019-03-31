@@ -5,15 +5,17 @@
         function login($user){
             $data = $user->login();
             if(isset($data['status']) && $data['status'] == "fail"){
-                return $user->login();
+               return json_encode($data);  
             }
-            else{
-                // establish session
+            
+            if(!isset($data['status'])){
                 sessionStart();
+                $user->login();
                 setUpSession($data['account_type'], $data['id']);
                 return json_encode(array(
                     "message" => "login success",
-                    "status" => "success"
+                    "status" => "success",
+                    "account_type" => $data['account_type']
                 ));
             }
         }
