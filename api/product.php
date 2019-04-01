@@ -54,14 +54,14 @@
         }
 
         if (file_exists($target_file)) {
-            echo json_encode(array("message" => "file already exists", "stauts" => "fail"));
+            echo json_encode(array("message" => "File name already exists", "status" => "fail"));
         }
         else if($_FILES['picture']['error'] > 0){
-            echo json_encode(array("message" => "maybe, something is wronged", "status" => "fail"));
+            echo json_encode(array("message" => "Maybe, something is wronged", "status" => "fail"));
         }
         else if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"){
             echo json_encode(array(
-                "message" => "only jpg, png & jpeg files are allowed",
+                "message" => "Only jpg, png & jpeg files are allowed",
                 "status" => "fail"
             ));
         }

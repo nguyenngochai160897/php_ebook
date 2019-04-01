@@ -34,15 +34,15 @@
 
         function create($product){
             //check category_id exsited??
-            $category_id = $product->category_id;
-            require_once __DIR__."/../model/category.php";
-            $category = new Category();
-            $cList = $category->gets();
-            foreach($cList as $c){
-                if($c['id'] != $category_id){
-                    return json_encode(array("message" => "not found resource", "status" => "fail"));
-                }
-            }
+            // $category_id = $product->category_id;
+            // require_once __DIR__."/../model/category.php";
+            // $category = new Category();
+            // $cList = $category->gets();
+            // foreach($cList as $c){
+            //     if($c['id'] != $category_id){
+            //         return json_encode(array("message" => "not found resource", "status" => "fail"));
+            //     }
+            // }
             $product->create();
             return json_encode(array(
                 "message"=>"create success",
