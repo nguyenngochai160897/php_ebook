@@ -1,17 +1,15 @@
 <?php
     require_once __DIR__."/object.php";
+    require_once __DIR__."/db.php";
 
-    class Product extends Objects{
+    class Product{
         public $title, $publisher_name, $author_name, $publish_year, $category_id, $price, $picture,
-            $num_existed, $description;
+            $num_existed, $description, $id;
         public $table = "products";
-        public $conn;
 
-        public function __construct(){
-            parent::__construct();
-        }
 
         public function create(){
+            $conn = connectDB();
             $query = "INSERT INTO ".$this->table.
                     " SET ". "category_id = '" .$this->category_id."',".
                             " title = N'".$this->title."',".
@@ -22,10 +20,12 @@
                             " publish_year = '".$this->publish_year."',".
                             " description = '".$this->description."',".
                             " num_existed = '".$this->num_existed."'";
-            $result = mysqli_query($this->conn, $query);
+            $result = mysqli_query($conn, $query);
+            mysqli_close($conn);
         }
 
         function update(){
+            $conn = connectDB();
             $query = "UPDATE ".$this->table.
                     " SET ". "category_id = '" .$this->category_id."',".
                     " title = N'".$this->title."',".
@@ -37,44 +37,61 @@
                     " description = N'".$this->description."',".
                     " num_existed = '".$this->num_existed."'".
                     " WHERE "."id =".$this->id;
-            $result = mysqli_query($this->conn, $query);
-            return mysqli_affected_rows($this->conn);
+            $result = mysqli_query($conn, $query);
+
+            return mysqli_affected_rows($conn);
         }
 
         function changeNumProductExist(){
+            $conn = connectDB();
             $query = "UPDATE ".$this->table.
                     " SET num_existed = '".$this->num_existed."'".
                     " WHERE "."id =".$this->id;
-            $result = mysqli_query($this->conn, $query);
-            return mysqli_affected_rows($this->conn);
+            $result = mysqli_query($conn, $query);
+            return mysqli_affected_rows($conn);
         }
+        
         function fetchAllByCategory(){
+            $conn = connectDB();
             $father_table = "categories";
             $query = "SELECT products.*, categories.name as category_name FROM ".$this->table.
                     " JOIN categories ON products.category_id = categories.id";
-            $result = mysqli_query($this->conn, $query);
+            $result = mysqli_query($conn, $query);
             $arr = array();
             if(mysqli_num_rows($result) > 0){
                 while($row = mysqli_fetch_assoc($result)){
                     array_push($arr, $row);
                 }
             }
+            mysqli_close($conn);
+
             return $arr;
         }
 
         function fetchByCategory(){
+            $conn = connectDB();
             $father_table = "categories";
             $query = "SELECT products.*, categories.name as category_name FROM ".$this->table.
                     " JOIN categories ON products.category_id = categories.id ".
                     "WHERE products.id = ".$this->id;
-            $result = mysqli_query($this->conn, $query);
+            $result = mysqli_query($conn, $query);
             $arr = array();
             if(mysqli_num_rows($result) > 0){
                 $row = mysqli_fetch_assoc($result);
                 array_push($arr, $row);
             }
+            mysqli_close($conn);
+
             return $arr;
         }
+
+        public function delete(){
+            $conn = connectDB();
+            $query = "DELETE FROM ".$this->table." WHERE id=".$this->id;
+            $result = mysqli_query($conn, $query);
+            return mysqli_affected_rows($conn);
+        }
+
 
     }
 

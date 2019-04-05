@@ -3,6 +3,7 @@
 ?>
 
 <script>
+$(".category").addClass("active")
 function getAllCategory() {
     let html = "";
     $.ajax({

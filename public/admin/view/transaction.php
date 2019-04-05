@@ -1,7 +1,9 @@
 <?php
     require_once __DIR__."/header.php";
 ?>
-
+<script>
+    $(".trans").addClass("active")
+</script>
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-5 mt-5">
     <h4>Transaction</h4>
     <table class="table text-center table-bordered">

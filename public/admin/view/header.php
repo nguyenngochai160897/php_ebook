@@ -39,6 +39,7 @@
     <script src="<?php echo base_url();?>public/js/jquery.js"></script>
     <script src="<?php echo base_url();?>public/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url();?>public/admin/js/datatable.min.js"></script>
+    
 </head>
 <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -49,7 +50,6 @@
             </li>
         </ul>
     </nav>
-
     <div class="container-fluid">
         <div class="row">
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -57,28 +57,28 @@
                     <ul class="nav flex-column">
                         <h3>
                             <li class="nav-item">
-                                <a class="nav-link active" href="index.php">
+                                <a class="nav-link dashboard" href="index.php">
                                     Dashboard
                                 </a>
                             </li>
                         </h3>
                         <li class="nav-item">
                             <h3>
-                                <a class="nav-link" href="transaction.php">
+                                <a class="nav-link trans" href="transaction.php">
                                     Transaction
                                 </a>
                             </h3>
                         </li>
                         <li class="nav-item">
                             <h3>
-                                <a class="nav-link" href="product.php">
+                                <a class="nav-link product" href="product.php">
                                     Product
                                 </a>
                             </h3>
                         </li>
                         <li class="nav-item">
                             <h3>
-                                <a class="nav-link" href="category.php">
+                                <a class="nav-link category" href="category.php">
                                     Category
                                 </a>
                             </h3>

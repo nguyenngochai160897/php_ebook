@@ -67,12 +67,12 @@
             }
         }
 
-        function update($product){
+        function update($product){ 
             $data = $product->update();
             if($data <= 0){
                 return json_encode(array("message" => "not row affect", "status" => "review"));
             }
-            else{
+            else{      
                 return json_encode(array("message" => "update success", "status" => "success"));
             }
         }

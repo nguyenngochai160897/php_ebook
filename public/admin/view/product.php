@@ -3,6 +3,8 @@
 ?>
 
 <script>
+$(".product").addClass("active")
+
 function getAllProduct() {
     let html = ""
     let srcImg = "<?php echo base_url();?>uploads/";
@@ -12,6 +14,7 @@ function getAllProduct() {
         method: "GET",
         dataType: "json",
         success: function(res) {
+            console.log(res)
             let data = res.records;
             for (let i = 0; i < data.length; i++) {
                 html += "<tr>" +
@@ -21,12 +24,13 @@ function getAllProduct() {
                     ' </td>' +
                     '<td class="align-middle">' + data[i].title + '</td>' +
                     '<td class="align-middle">' + data[i].num_existed + '</td>' +
-                    '<td class="align-middle">' + data[i].price + '$</td>' +
+                    '<td class="align-middle">' + data[i].price + 'VND</td>' +
                     '<td class="align-middle">' + data[i].category_name + '</td>' +
                     '<td class="align-middle">' +
                     '<button class="btn btn-danger" id="' + data[i].id + '">Delete</button>' +
                     '<div class="dropdown-divider"></div>' +
-                    '<button class="btn btn-success" data-toggle="modal" id="' + data[i].id +
+                    '<button class="btn btn-success btn-update" data-toggle="modal" id="' + data[i].id +
+                    '"' +
                     ' data-target="#updateModal">Update</button>' +
                     '</td>' +
                     '</tr>';
@@ -82,7 +86,8 @@ function addProduct(product) {
     return data;
 }
 
-function deleteProduct(id){
+function deleteProduct(id) {
+
     $.ajax({
         url: "<?php echo base_url();?>api/product.php",
         method: "DELETE",
@@ -91,80 +96,190 @@ function deleteProduct(id){
             id: id,
         },
         success: function(res) {
-            if(res.status == "review"){
-               alert("Can not delete this product!!!");
+            if (res.status == "review") {
+                alert("Can not delete this product!!!");
             }
-            
+
         }
     })
 }
 
-function validateFormAdd(){
-    if($("#title-add").val() == ""){
+function editProduct(product) {
+    let data = "";
+    let form_data = new FormData();
+    form_data.append("id", product.id);
+    form_data.append("category_id", product.category_id);
+    form_data.append("title", product.title);
+    form_data.append("publisher_name", product.publisher_name);
+    form_data.append("author_name", product.author_name);
+    form_data.append("publish_year", product.publish_year);
+    form_data.append("price", (product.price));
+    form_data.append("description", product.description);
+    form_data.append("num_existed", (product.num_existed));
+    form_data.append("picture", product.picture);
+    $.ajax({
+        async: false,
+        url: "<?php echo base_url();?>api/product.update.php",
+        method: "POST",
+        data: form_data,
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        success: function(res) {
+            if (res.status == "fail") {
+                $(".alert-picture-update").show();
+                $(".alert-picture-update").html(res.message);
+            } else {
+                $(".alert-picture-update").hide();
+            }
+        }
+    })
+}
+
+function validateFormAdd() {
+    if ($("#title-add").val() == "") {
         $("#title-add").focus()
         $(".alert-title-add").show();
         return false;
-    }
-    else{
+    } else {
         $(".alert-title-add").hide();
     }
 
-    if($("#publisher-add").val() == ""){
+    if ($("#publisher-add").val() == "") {
         $("#publisher-add").focus()
         $(".alert-publisher-add").show();
         return false;
-    }
-    else{
+    } else {
         $(".alert-publisher-add").hide();
     }
 
-    if($("#author-add").val() == ""){
+    if ($("#author-add").val() == "") {
         $("#author-add").focus()
         $(".alert-author-add").show();
         return false;
-    }
-    else{
+    } else {
         $(".alert-author-add").hide();
     }
 
-    if($("#year-add").val() == ""){
+    if ($("#year-add").val() == "") {
         $("#year-add").focus()
         $(".alert-year-add").show();
         return false;
-    }
-    else{
+    } else {
         $(".alert-year-add").hide();
     }
 
-    if($("#price-add").val() == "" || !$.isNumeric($("#price-add").val())){
+    if ($("#price-add").val() == "" || !$.isNumeric($("#price-add").val())) {
         $("#price-add").focus()
         $(".alert-price-add").show();
         return false;
-    }
-    else{
+    } else {
         $(".alert-price-add").hide();
     }
 
-    if($("#amount-add").val() == "" ){
+    if ($("#amount-add").val() == "") {
         $("#amount-add").focus()
         $(".alert-amount-add").show();
         return false;
-    }
-    else{
+    } else {
         $(".alert-amount-add").hide();
     }
 
-    if($("#description-add").val() == ""){
+    if ($("#description-add").val() == "") {
         $("#description-add").focus()
         $(".alert-description-add").show();
         return false;
-    }
-    else{
+    } else {
         $(".alert-description-add").hide();
     }
 
     return true;
 }
+
+function validateFormUpdate() {
+    if ($("#title-update").val() == "") {
+        $("#title-update").focus()
+        $(".alert-title-update").show();
+        return false;
+    } else {
+        $(".alert-title-update").hide();
+    }
+
+    if ($("#publisher-update").val() == "") {
+        $("#publisher-update").focus()
+        $(".alert-publisher-update").show();
+        return false;
+    } else {
+        $(".alert-publisher-update").hide();
+    }
+
+    if ($("#author-update").val() == "") {
+        $("#author-update").focus()
+        $(".alert-author-update").show();
+        return false;
+    } else {
+        $(".alert-author-update").hide();
+    }
+
+    if ($("#year-update").val() == "") {
+        $("#year-update").focus()
+        $(".alert-year-update").show();
+        return false;
+    } else {
+        $(".alert-year-update").hide();
+    }
+
+    if ($("#price-update").val() == "" || !$.isNumeric($("#price-update").val())) {
+        $("#price-update").focus()
+        $(".alert-price-update").show();
+        return false;
+    } else {
+        $(".alert-price-update").hide();
+    }
+
+    if ($("#amount-update").val() == "") {
+        $("#amount-update").focus()
+        $(".alert-amount-update").show();
+        return false;
+    } else {
+        $(".alert-amount-update").hide();
+    }
+
+    if ($("#description-update").val() == "") {
+        $("#description-update").focus()
+        $(".alert-description-update").show();
+        return false;
+    } else {
+        $(".alert-description-update").hide();
+    }
+
+    return true;
+}
+
+function getProduct(id) {
+    let src = "<?php echo base_url();?>uploads/";
+    $.ajax({
+        url: "<?php echo base_url();?>api/product.php?id=" + id,
+        method: "GET",
+        dataType: "json",
+        success: function(res) {
+            let data = res.record[0];
+            $("#id-update").val(data.id)
+            $("#title-update").val(data.title)
+            $("#picture-name-update").html(data.picture)
+            $("#publisher-update").val(data.publisher_name)
+            $("#author-update").val(data.author_name)
+            $("#year-update").val(data.publish_year)
+            $("#price-update").val(data.price)
+            $("#amount-update").val(data.num_existed);
+            $("#category-update").val(data.category_name)
+            $("#description-update").val(data.description)
+            $("#image_upload_preview").attr("src", src + data.picture)
+        }
+    })
+}
+
+
 
 $(document).ready(function() {
     $(".alert").hide();
@@ -172,13 +287,13 @@ $(document).ready(function() {
     getAllCategory();
 
 
-    $("#picture-add").on("change", function(){
-        // console.log($(this)[0].files[0].name)
+    $("#picture-update").on("change", function() {
+        $("#picture-name-update").html($(this)[0].files[0].name)
     })
 
     $(".submit-add").on("click", function(e) {
         e.preventDefault();
-        if(validateFormAdd()){
+        if (validateFormAdd()) {
             let product = {
                 category_id: $("#category-add").children(":selected").attr("id"),
                 title: $("#title-add").val(),
@@ -191,11 +306,10 @@ $(document).ready(function() {
                 picture: $("#picture-add").prop("files")[0]
             }
             let data = addProduct(product)
-            if(data.status == "fail"){
+            if (data.status == "fail") {
                 $(".alert-picture-add").html(data.message)
                 $(".alert-picture-add").show()
-            }
-            else{
+            } else {
                 $(".alert-picture-add").hide()
                 $("#title-add").val("");
                 $("#publisher-add").val("");
@@ -206,20 +320,46 @@ $(document).ready(function() {
                 $("#category-add").find('option:first').attr('selected', 'selected');
                 $("#author-add").val("");
                 $("#picture-add").val("")
+                $("#image_upload_preview_add").attr("src", "");
                 getAllProduct()
             }
         }
     })
 
     $(".body-product").on("click", ".btn-danger", function() {
-        let product_id = $(".btn-danger").attr("id");
-        if(window.confirm("Do you want to delete product with id : " + product_id)){
+        let product_id = $(this).attr("id");
+        if (window.confirm("Do you want to delete product with id : " + product_id)) {
             deleteProduct(product_id)
             getAllProduct();
         }
     })
 
+    $(".body-product").on("click", ".btn-update", function() {
+        let product_id = $(this).attr("id")
+        getProduct(product_id)
+    })
 
+    $(".submit-update").on("click", function(e) {
+        e.preventDefault();
+        if (validateFormUpdate()) {
+            let product = {
+                id: $("#id-update").val(),
+                category_id: $("#category-update").children(":selected").attr("id"),
+                title: $("#title-update").val(),
+                publisher_name: $("#publisher-update").val(),
+                author_name: $("#author-update").val(),
+                publish_year: $("#year-update").val(),
+                price: parseFloat($("#price-update").val()),
+                description: $("#description-update").val(),
+                num_existed: parseInt($("#amount-update").val()),
+                picture: $("#picture-update").prop("files")[0]
+            }
+            console.log(product)
+            editProduct(product);
+            getAllProduct()
+        }
+
+    })
 })
 </script>
 
@@ -238,7 +378,7 @@ $(document).ready(function() {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New add a category</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">New add a product</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -248,13 +388,16 @@ $(document).ready(function() {
                         <div class="row">
                             <div class="form-group col-sm-8">
                                 <label>Title</label>
-                                <input type="text" class    ="form-control" placeholder="Product'title" id="title-add">
+                                <input type="text" class="form-control" placeholder="Product'title" id="title-add">
                                 <div class="alert alert-danger alert-title-add" role="alert">
                                     Title is required
                                 </div>
                             </div>
 
-                            <div class="form-group col-sm-4">
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-8">
                                 <label>Choose file</label>
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" id="picture-add">
@@ -264,6 +407,9 @@ $(document).ready(function() {
                                     File is required
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group col-sm-3 position-absolute" style="right:1rem; top:1rem">
+                            <img alt="" class="img-thumbnail" id="image_upload_preview_add">
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
@@ -309,7 +455,7 @@ $(document).ready(function() {
 
                         <div class="form-group">
                             <label>Select a category</label>
-                            <select class="custom-select custom-select-lg select-category" id = "category-add">
+                            <select class="custom-select custom-select-lg select-category" id="category-add">
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
@@ -342,7 +488,7 @@ $(document).ready(function() {
                 <th scope="col" width="5%">Amount</th>
                 <th scope="col" width="5%">Price/Product</th>
                 <th scope="col" width="10%">Belong to Category</th>
-                <th scope="col" width="25%">Action</th>
+                <th scope="col" width="15%">Action</th>
             </tr>
         </thead>
         <tbody class="body-product lead">
@@ -370,62 +516,85 @@ $(document).ready(function() {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New add a category</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Update the category</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form>
+                        <div><input type="text" id="id-update" class="d-none"></div>
                         <div class="row">
                             <div class="form-group col-sm-8">
                                 <label>Title</label>
-                                <input type="text" class="form-control" placeholder="Product'title" id="title-add"
-                                    required>
-
+                                <input type="text" class="form-control" placeholder="Product'title" id="title-update">
+                                <div class="alert alert-danger alert-title-add" role="alert">
+                                    Title is required
+                                </div>
                             </div>
 
-                            <div class="form-group col-sm-4">
+                        </div>
+                        <div class="form-group col-sm-3 position-absolute" style="right:1rem; top:1rem">
+                            <img src="" alt="err" class="img-thumbnail" id="image_upload_preview">
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-8">
                                 <label>Choose file</label>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="picture-add">
-                                    <label class="custom-file-label" for="customFile">File</label>
+                                    <input type="file" class="custom-file-input" id="picture-update">
+                                    <label class="custom-file-label" for="customFile"
+                                        id="picture-name-update">File</label>
+                                </div>
+                                <div class="alert alert-danger alert-picture-update" role="alert">
+                                    File is required
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label>Publisher Name</label>
-                                <input type="text" class="form-control" placeholder="Publisher" id="publisher-add">
+                                <input type="text" class="form-control" placeholder="Publisher" id="publisher-update">
+                                <div class="alert alert-danger alert-publisher-uodate" role="alert">
+                                    Publisher is required
+                                </div>
                             </div>
                             <div class="form-group col-sm-6">
                                 <label>Author Name</label>
-                                <input type="text" class="form-control" placeholder="Author" id="author-add">
+                                <input type="text" class="form-control" placeholder="Author" id="author-update">
+                                <div class="alert alert-danger alert-author-update" role="alert">
+                                    Title is required
+                                </div>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-sm-4">
                                 <label>Publish Year</label>
-                                <input type="text" class="form-control" placeholder="Year" id="year-add">
-
+                                <input type="text" class="form-control" placeholder="Year" id="year-update">
+                                <div class="alert alert-danger alert-year-update" role="alert">
+                                    Title is required
+                                </div>
                             </div>
                             <div class="form-group col-sm-4">
                                 <label>Price</label>
-                                <input type="text" class="form-control" placeholder="Price" id="price-add">
-
+                                <input type="text" class="form-control" placeholder="Price" id="price-update">
+                                <div class="alert alert-danger alert-price-update" role="alert">
+                                    Title is required
+                                </div>
                             </div>
                             <div class="form-group col-sm-4">
                                 <label>Amount</label>
-                                <input type="text" class="form-control" placeholder="Amount" id="amount-add">
-
+                                <input type="number" class="form-control" placeholder="Amount" id="amount-update">
+                                <div class="alert alert-danger alert-amount-update" role="alert">
+                                    Amount is required
+                                </div>
                             </div>
                         </div>
 
-
                         <div class="form-group">
                             <label>Select a category</label>
-                            <select class="custom-select custom-select-lg select-category">
+                            <select class="custom-select custom-select-lg select-category" id="category-update">
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
@@ -434,19 +603,55 @@ $(document).ready(function() {
 
                         <div class="form-group">
                             <label>Description:</label>
-                            <textarea class="form-control" rows="5" id="description-add"></textarea>
+                            <textarea class="form-control" rows="5" id="description-update"></textarea>
+                            <div class="alert alert-danger alert-description-update" role="alert">
+                                Description is required
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-success submit-add">Save</button>
+                        <button type="submit" class="btn btn-success submit-update">Save changes</button>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Update</button>
                 </div>
             </div>
         </div>
     </div>
 </main>
+<script>
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('#image_upload_preview').attr('src', e.target.result);
+        }
+
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function readURL_ADD(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('#image_upload_preview_add').attr('src', e.target.result);
+        }
+
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#picture-update").change(function() {
+    readURL(this);
+});
+$("#picture-add").change(function(){
+    readURL_ADD(this)
+})
+</script>
 <?php
     require_once __DIR__."/footer.php";
 ?>

@@ -4,6 +4,7 @@
 ?>
 
 <script>
+    $(".dashboard").addClass("active")
     function getOrder(){
         $.ajax({
         

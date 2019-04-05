@@ -25,6 +25,7 @@
             // var_dump($arr);
             // return json_encode(array("status" => "success", "record"=>$arr['record']));
             // echo json_encode($arr, JSON_UNESCAPED_UNICODE);
+            // mysqli_close($this->conn);
             return ($arr);
         }
 
@@ -37,6 +38,7 @@
                 $row = mysqli_fetch_assoc($result);
                 array_push($arr, $row);
             }
+            // mysqli_close($this->conn);
             return ($arr);
         }
 
@@ -47,7 +49,7 @@
         abstract function update();
 
         //delete a object 
-        function delete(){
+        public function delete(){
             $query = "DELETE FROM ".$this->table." WHERE id=".$this->id;
             $result = mysqli_query($this->conn, $query);
             return mysqli_affected_rows($this->conn);
