@@ -48,14 +48,18 @@
                     " SET "."name = N'".$this->name."'".
                     " WHERE "."id = ".$this->id;
             $result = mysqli_query($conn, $query);
-            return mysqli_affected_rows($conn);
+            $affected = mysqli_affected_rows($conn);
+            mysqli_close($conn);
+            return $affected;
         }
 
         function delete(){
             $conn = connectDB();
             $query = "DELETE FROM ".$this->table." WHERE id=".$this->id;
             $result = mysqli_query($conn, $query);
-            return mysqli_affected_rows($conn);
+            $affected = mysqli_affected_rows($conn);
+            mysqli_close($conn);
+            return $affected;
         }
     }
 

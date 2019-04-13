@@ -1,0 +1,544 @@
+
+.main-menu ul.list{
+	display: none;
+	z-index: 12;
+}
+.main-menu:hover{
+	cursor: pointer;
+}
+.main-menu:hover ul.list {
+    /* cursor: pointer; */
+    display: block;
+          box-shadow: 0 1px 3px #999;
+}
+.main-detail{
+	margin-bottom: 100px;
+}
+.main-detail .pathway{
+	width: 100%;
+	height: 25px;
+	display: block;
+}
+.main-detail .pathway ul.path{
+	list-style: none;
+	line-height: 25px;
+	padding: 0;
+	margin: 0;
+	z-index: 10;
+}
+.main-detail .pathway ul.path li{
+	float: left;
+	font-size: 15px;
+	margin-top: 5px;
+	color: #999999;
+	margin-right: 5px;
+}
+.main-detail .pathway ul.path li a{
+	color: #00cc66;
+    padding: 0 10px 0 0;
+    text-decoration: none;
+    background: url(../images/orange-arrow-r.png) no-repeat right 2px;
+    font-family: arial;
+}
+
+
+.xemthemnoidung {
+    height: 40px;
+    width: 400px;
+    margin: 10px auto;
+    line-height: 40px;
+    background-color: #00cc66;
+    text-align: center;
+    color: white;
+    font-weight: 500;
+    font-size: 19px;
+}
+.xemthemnoidung:hover {
+	cursor: pointer;
+	background-color: #029243;
+}
+
+.noidung p {
+    padding-top: 10px;
+    text-align: justify;
+}
+
+.gioithieu {
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.gioithieusach .gioithieu h3 {
+    font-size: 22px;
+    text-transform: capitalize;
+    font-weight: 400;
+}
+
+.gioithieusach {
+    margin-top: 30px;
+}
+
+.intro i.fa.fa-check {
+    color: #00cc66;
+    padding-right: 6px;
+    font-size: 15px;
+}
+.intro span{
+	font-size:15px;
+}
+.intro span b{
+	color: #f37924;
+}
+
+.product-infor .intro {
+    margin-top: 25px;
+}
+
+.goshop p{
+    display: block;
+    background-color: #ff3300;
+    color: white;
+    padding: 7px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 35px;
+    margin-left: 280px;
+    margin-top: 5px;
+}
+
+.goshop p:hover {
+    background-color: #e02d01;
+    cursor: pointer;
+}
+
+.prices-container {
+    margin-top: 14px;
+    width: 100%;
+    border-top: 1px solid #e4e4e4;
+    display: flex;
+    border-bottom: 1px solid #e4e4e4;
+    height: 83px;
+    padding: 10px 0;
+}
+
+.prices-container .price {
+    font-size: 35px;
+    font-weight: 700;
+    color: #00cc66;
+    width: 200px;
+    overflow: hidden;
+    font-family: arial;
+}
+
+.viewfield .phathanh {
+    font-weight: 500;
+}
+.phathanh a {
+    color: #00b468;
+}
+
+.viewfield .tacgia {
+    margin-right: 100px;
+    font-weight: 500;
+}
+
+.tacgia .phathanh {
+    font-weight: 500;
+}
+
+.tacgia a {
+    color: #00b468;
+}
+
+.viewfield {
+    margin-top: 10px;
+    display: flex;
+    font-size: 16px;
+}
+
+.product-infor h1 {
+    font-size: 21px;
+    font-weight: 500;
+}
+
+.product-infor {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding-left: 73px;
+}
+
+.content-detail .right {
+    float: left;
+    width: 75%;
+    height: 350px;
+    margin-left: 20px;
+}
+
+.content-detail .left {
+    width: 22%;
+    float: left;
+    height: 350px;
+    overflow: hidden;
+}
+
+.content-detail {
+    margin-top: 20px;
+    width: 100%;
+}
+.collapse1{
+	height: 110px;
+	overflow: hidden;
+}
+.wrapper-black{
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: black;
+	opacity: 0.92;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+
+}
+.visibility{
+	visibility: hidden;
+}
+.wrapper-box{
+    width: 270px;
+    height: 405px;
+    top: 80px;
+    left: 40%;
+    background-color: #FFF;
+    position: fixed;
+    z-index: 9999;
+    padding: 10px;
+}
+.product-infor-box button {
+    background: #F7941E;
+    outline: none;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    margin-top: 10px;
+    text-transform: capitalize;
+    float: left;
+}
+
+.product-infor-box button:hover{
+	background-color: #c00;
+	
+}
+a.thanhtoan {
+    float: right;
+    margin-top: 10px;
+    color: white;
+    background-color: #F7941E;
+    padding: 5px 10px;
+    text-align: center;
+    text-transform: capitalize;
+}
+a.thanhtoan:hover{
+	background-color: #c00;
+}
+
+.p-name a {
+    color: #444;
+    font-size: 16px;
+}
+
+.p-name {
+    height: 25px;
+    overflow: hidden;
+}
+
+.p-image img {
+    width: 100%;
+    height: 100%;
+}
+
+.p-image {
+    width: 250px;
+    height: 250px;
+    padding: 0 35px;
+    text-align: center;
+}
+
+.wrapper-box .product-infor-box {
+    width: 100%;
+}
+
+.wrapper-box p.info {
+    color: #444443;
+    font-size: 14px;
+    border: 1px solid #eee;
+    padding: 5px;
+    text-align: center;
+    background: #fbfbfb;
+    margin-bottom: 5px;
+}
+
+p.info {
+    font-size: 15px;
+}
+
+
+.field .submit {margin-left: 97px;margin-top: -11px;}
+
+.field .submit input {
+    width: 130px;
+    background-color: #00cc66;
+    color: white;
+}
+
+.field a {
+    margin-left: 100px;
+    color: #00cc66;
+}
+
+.help {
+    font-size: 11px;
+    margin-left: 20px;
+    line-height: 35px;
+}
+
+input#idemail {
+    margin-left: 115px;
+    width: 300px;
+}
+input#idpassword{
+    margin-left: 90px;
+    width: 300px;
+}
+input#idaddress{
+    margin-left: 98px;
+    width: 300px;
+}
+input#idphone{
+    margin-left: 109px;
+    width: 300px;
+}
+input#idfirstN{
+    margin-left: 80px;
+    width: 300px;
+}
+input#idlastN{
+	margin-left: 82px;
+    width: 300px;
+}
+input#idconfirmpass{
+    margin-left: 30px;
+    width: 300px;
+}
+
+.textlabel {
+    font-size: 14px;
+    line-height: 30px;
+}
+
+span.required {
+    color: red;
+}
+
+label {
+    cursor: pointer;
+}
+
+.login-form .field {
+    width: 100%;
+    display: flex;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.login-form {
+    margin-top: 45px;
+}
+
+.login-form h3 {
+    font-size: 20px;
+    margin: 30px 0;
+}
+
+.main-login .block-content {
+    width: 60%;
+    margin: 10px auto;
+}
+
+.main-login h1 a {
+    color: #00cc66;
+}
+
+.main-login h1 a:hover {
+    text-decoration: underline;
+}
+
+.main-login h1 span {
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.main-login h1 {
+    height: 30px;
+    width: 100%;
+    font-size: 23px;
+    font-family: serif;
+    margin-top: 40px;
+    font-weight: bold;
+    border-bottom: 1px solid #e4e4e4;
+    padding-bottom: 40px;
+}
+a.taotaikhoan {
+    margin-left: 28px;
+    margin-top: 5px;
+    font-size: 16px;
+}
+a.taotaikhoan:hover{
+	text-decoration: underline;
+}
+.field a:hover{
+	text-decoration: underline;
+}
+.submit .dangky{
+    margin-left: 234px;
+    margin-top: 28px;
+}
+
+
+.allproducts .productcontainer {
+    display: inline-block;
+    width: 210px;
+}
+
+.allproducts {
+    width: 100%;
+    overflow: hidden;
+}
+
+.pagesright {
+    height: 36px;
+    background-color: #f2f2f2;
+}
+
+.block h1 {
+    font-size: 16px;
+}
+
+.block-content .block {
+    width: 100%;
+    height: 100%;
+    padding: 30px 0px;
+    overflow: hidden;
+}
+
+.block-content {
+    width: 100%;
+    float: right;
+    /* height: 1000px; */
+    display: block;
+}
+.cart{
+	margin-top: 40px;
+}
+*{
+	margin: 0;
+	padding: 0;
+}
+a.chonthem {
+    padding: 12px 18px;
+    background-color: #F7941E;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-family: serif;
+    line-height: 40px;
+    border-radius: 4px;
+    
+}
+button.capnhatgiohang{
+	float: right;
+    background-color: #F7941E;
+    outline: none;
+    border: none;
+    padding: 8px 10px;
+    color: white;
+    font-family: serif;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-radius: 4px;
+    
+}
+button.xoahetgiohang {
+	margin-right: 15px;
+    float: right;
+    background-color: #F7941E;
+    outline: none;
+    border: none;
+    padding: 8px 10px;
+    color: white;
+    font-family: serif;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-radius: 4px;
+}
+a.chonthem:hover{
+	background-color: #d83a2e;
+}
+button.xoahetgiohang:hover{
+	background-color: #d83a2e;
+}
+button.capnhatgiohang:hover{
+	background-color: #d83a2e;
+}
+.tongtien {
+    width: 800px;
+    box-shadow: 0px 0px 1px 1px #ddd;
+    border: 1px solid #e6e6e6;
+    margin-top: 20px;
+    float: right;
+}
+.tongsotien strong {
+    margin-right: 19px;
+}
+
+.tongsotien {
+    float: right;
+    text-transform: uppercase;
+    padding: 15px;
+    font-size: 20px
+}
+.xacnhan{
+	padding: 2px 20px;
+    background-color: #F7941E;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-family: serif;
+    line-height: 40px;
+    border-radius: 4px;
+    float: right;
+    margin-right: 20px;
+    margin: 20px;
+}
+.title-giohang {
+    height: 50px;
+    font-size: 20px;
+    font-weight: 600;
+    border-bottom: 2px solid #f6f6f6;
+    color: #6a6a6a;
+    line-height: 50px;
+    margin: 0 20px;
+    padding-left: 10px;
+  }
+  .form-left {
+    float: left;
+    padding-left: 20px;
+    width: 40%;
+}
+.form-right {
+    float: right;
+    width: 40%;
+    padding-right: 20px;
+}
+input#diachi, input#sdt, input#email {
+    width: 100%;
+}

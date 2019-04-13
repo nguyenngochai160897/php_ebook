@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Chi tiet san pham</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="./assets/plugin/bootstrap.min.css">
+
+	<link rel="stylesheet" type="text/css" href="./assets/css/index.css">
+	<link rel="stylesheet" type="text/css" href="./assets/css/chitietsp-login-register.css">
+		<!-- jQuery -->
+	<script src="./assets/plugin/jquery-3.3.1.min.js"></script>
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+	
+	<link rel="shortcut icon" href="http://nobita.vn/layouts/fontpage/images/favicon.ico">
+
+
+
+		<!-- My js -->
+	<!-- <script src="./assets/js/myjs.js"></script> -->
+	<script src="./assets/js/chitietsp.js"></script>
+
+	<!-- OwlCarousel2 -->
+<!-- 	<link rel="stylesheet" type="text/css" href="./assets/plugin/OwlCarousel2-2.3.4/owl.carousel.min.css">
+	<script src="./assets/plugin/OwlCarousel2-2.3.4/owl.carousel.min.js"></script>
+ -->
+
+</head>
+<body>
+	<div class="header">
+		<div class="top-header">
+			<div class="container">
+				<div class="row topbar">
+					<div class="col-3">
+						<div class="logo">
+							<a href="">
+								<img src="./assets/images/logo.png" alt="">
+							</a>
+						</div>
+					</div> <!-- het logo -->
+
+					<div class="col-6">
+						<form action="">
+							<input type="text" name="seach" id="search" class="form-control ttimkiem">
+							<input type="submit" class="btntimkiem form-control" name="btntimkiem" value="Tìm">
+							<ul class="list-group" id="result"></ul>
+						</form>
+					</div> <!-- het input -->
+
+					<div class="col-3">
+						<div class="login">
+							<a href="" title="" class="login 	"><i class="fa fa-user text-18"></i>Đăng nhập</a>
+							<a href="" title="" class="giohang">Giỏ hàng<span>(13)</span><i class="fas fa-sort-down"></i></a>		
+						</div>
+					</div> <!-- het login,gio hang -->
+				</div>
+			</div>
+		</div> <!-- het top-header -->
+		<div class="bottom-header">
+			<div class="container">
+				<div class="row">
+					<div class="main-menu">
+						<span >
+							<h2 class="danhmuc">
+								<i class="fas fa-bars"></i>
+								DANH MỤC SẢN PHẨM
+							</h2>
+						</span>
+						<ul class="list">
+							<li>
+								<span><a href=""><b>Nổi bật</b></a></span>
+								<ul class="list-child">
+									<li><a href="">Sách bán chạy</a></li>
+									<li><a href="">Sách mới</a></li>
+									<li><a href="">Sắp phát hành</a></li>
+									<li><a href="">Sách giảm giá</a></li>
+								</ul>
+							</li>
+							<li><span><a href="">Sách kinh tế</a></span></li>
+							<li><span><a href="">Văn học nước ngoài</a></span></li>
+							<li><span><a href="">Văn học trong nước</a></span></li>
+							<li><span><a href="">Sách kỹ năng sống</a></span></li>
+							<li><span><a href="">Sách tuổi teen</a></span></li>
+							<li><span><a href="">Học ngoại ngữ</a></span></li>
+							<li><span><a href="">Sách thiếu nhi</a></span></li>
+							<li><span><a href="">Thương thức đời sống</a></span></li>
+							<li><span><a href="">Sách chuyên ngành</a></span></li>
+							<li><span><a href="">Văn Phòng Phẩm - Quà Tặng</a></span></li>
+						</ul>
+					</div> <!-- het mainmenu -->
+					<div class="hotline">
+						<i class="fas fa-phone"></i>
+						<span class="hline">Hotline:</span>
+						<span class="sdt">0123456798</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<section  class="main-detail">
+		<div class="container">
+			<div class="row">
+				<div class="pathway">
+					<ul class="path">
+						<li><a href="">Trang chủ</a></li>
+						<li><a href="">Văn học nước ngoài</a></li>
+						<li>Khi nhìn lên trời xanh, tớ sẽ rất nhớ cậu</li>
+					</ul>
+				</div> <!-- het pathway -->
+				<div class="content-detail">
+					<div class="left">
+						<img src="./assets/images/chitiet1.jpg" alt="">
+					</div>
+					<div class="right">
+						<div class="product-infor">
+							<h1>Khi nhìn lên trời xanh, tớ sẽ rất nhớ cậu</h1>
+							<div class="viewfield">
+								<div class="tacgia">
+									<span>Tác giả: <a href=""> Septiny</a> </span>
+								</div>
+								<div class="phathanh">
+									<span>Nhà phát hành: <a href=""> Người Trẻ Việt</a></span>
+								</div>
+							</div> <!-- het viewfield -->
+							<div class="prices-container">
+								<div class="price">
+									67.150 ₫
+								</div>
+								<div class="goshop">
+									<p onclick="muangay()">Mua ngay</p>
+								</div>
+							</div> <!-- het prices-container -->
+							<div class="intro">
+								<p><i class=" fa fa-check"></i><span>Bọc Plastic miễn phí </span></p>
+								<p><i class=" fa fa-check"></i><span>Giao hàng miễn phí trong nội thành TP. HCM với đơn hàng  <b>≥ 150.000 đ </b></span></p>
+								<p><i class=" fa fa-check"></i><span>Giao hàng miễn phí toàn quốc với đơn hàng <b>≥ 250.000 đ </b></span></p>
+							</div> <!-- het intro -->
+						</div> <!-- het produce-infor -->
+					</div> <!-- het right -->
+					<div class="clear"></div>
+
+					<div class="wrapper-black visibility" id="black">
+						<div class="wrapper-box">
+							<div>
+								<p class="info">
+									Sản phẩm đã được thêm thành công vào giỏ hàng của bạn
+								</p>
+							</div>
+							<div class="product-infor-box">
+								<div class="p-image">
+									<img src="./assets/images/chitiet1.jpg" alt="">
+								</div>
+								<div class="p-name">
+									<a href="">Khi nhìn lên trời xanh, tớ sẽ rất nhớ cậu</a>
+								</div>
+								<button onclick="chonthem()">Chọn thêm</button>
+								<a class="thanhtoan" href="">Thanh toán</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="gioithieusach">
+						<div class="gioithieu">
+							<h3>Giới thiệu sách</h3>
+						</div>
+						<div class="noidung collapse1" id="noidung">
+							<p>
+							Chàng trai 17 tuổi năm ấy bạn từng yêu...
+
+							Là người đã bước đi bên cạnh bạn một quãng đường vừa đủ nhưng ngập tràn hạnh phúc và bình yên. Là người cùng bạn trốn học hay kiên trì chở bạn đi trên chiếc xe đạp cũ kĩ. Là người sẵn sàng nhịn ăn sáng để dành tiền mua cho bạn chiếc cặp tóc mới. Là mối tình đầu trong sáng nhất trong cuộc đời.
+
+							Chàng trai 17 tuổi năm ấy bạn từng yêu...
+
+							Là người mà cả đời này bạn sẽ không bao giờ quên nhưng chẳng thể nào đi cùng bạn tới suốt cuộc đời. Dù cả hai đã cùng nhau trải qua thời thanh xuân ngông cuồng tươi đẹp như thế, ở bên nhau vào những ngày tháng học hành thi cử khổ sở nhất như thế. Nhưng sau này lại không thể ở bên nhau nữa.
+
+							"Cảm ơn cậu đã xuất hiện và ở bên tớ trong những ngày tháng thanh xuân đẹp nhất. Dù sau này, chúng mình chẳng thể cùng nhau đi đến cuối con đường.
+
+							Tớ nhớ tóc cậu rất mềm, khi cậu cười sẽ có một cái lúm đồng tiền nho nhỏ ở má phải, cậu có một cái máy nghe nhạc cũ màu xanh lá cây, thích ăn bánh bao vào buổi sáng... Khi nhớ được một điều, những điều khác thuộc về cậu cũng nối đuôi nhau xuất hiện, khiến tớ không khỏi cười thầm. Thì ra ngày xưa tớ để ý cậu ấy nhiều đến nỗi như đã học thuộc lòng chúng.
+
+							Thanh xuân của mỗi người trong chúng ta, ai cũng đã đều bỏ lỡ một ai đó. Bởi vì vào những năm tháng ngốc nghếch trẻ dại ấy, chúng ta còn chưa biết cách yêu một người, chưa học được cách trân trọng. Nhưng tớ rất muốn hỏi một câu tại sao lại là người ấy lại là cậu?"
+
+							“Khi nhìn lên trời xanh, tớ sẽ rất nhớ cậu" – tập truyện đôi đặc biệt dành tặng tất cả những ai đã, đang và sẽ trải qua tuổi 17 đầy ngọt ngào, trong trẻo nhưng cũng đầy tiếc nuối. Cuốn sách đưa bạn trở lại những tháng ngày thanh xuân đẹp nhất, những ngày không chỉ có những bài Toán giải mãi không ra, những bài Văn viết mãi không hết, những lần trốn học cả lớp đi chơi, mà còn có chàng trai bạn thầm yêu – người bạn không thể quên suốt cả cuộc đời!
+
+							Này chàng trai năm 17 tuổi, giờ cậu ra sao?
+							</p>
+						</div>
+						<div class="xemthemnoidung" onclick="xemthemnoidung()" id="xemthem">
+							<span>Xem thêm nội dung <i class="fas fa-sort-down"></i></span>
+						</div>
+					</div> <!-- het gioi thieu sach -->
+ 				</div> <!-- het content-detail -->
+			</div>
+		</div> <!-- het container -->
+	</section>
+	<footer class="footer">
+		 <div class="container">
+			<div class="footer-menu">
+				<ul>
+					<li class="group">
+						Hỗ trợ khách hàng
+						<ul>
+							<li>Email: admin@nobita.vn</li>
+							<li>Hotline: <span>0123456798</span></li>
+						</ul>
+					</li>
+					<li class="group">
+						Giới thiệu
+						<ul>
+							<li><a href="">Về nobita</a></li>
+							<li><a href="">Tuyển dụng</a></li>
+						</ul>
+					</li>
+					<li class="group">
+						Tài khoản
+						<ul>
+							<li><a href="">Tài khoản</a></li>
+							<li><a href="">Danh sách đơn hàng</a></li>
+							<li><a href="">Thông báo</a></li>
+						</ul>
+					</li>
+					<li class="group">
+						Hướng dẫn
+						<ul>
+							<li><a href="">Hướng dẫn mua hàng</a></li>
+							<li><a href="">Phương thức thanh toán</a></li>
+							<li><a href="">Câu hỏi thường gặp</a></li>
+							<li><a href="">Phương thức vận chuyển</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div> <!-- het footer-menu -->
+			<div class="clear"></div>
+			<div class="footer-address">
+				<div class="coppyright">
+					Copyright © 2014 Nobita.vn
+				</div>
+			</div> <!-- het footer-address -->
+			<div class="backtotop" onclick="topFunction()" id ="myBtn">
+				<button class="bttop" >
+					<i class="fa fa-arrow-up"></i>
+				</button>
+			</div>
+		 </div>
+	</footer> <!-- het footer -->
+
+</body>
+</html>

@@ -44,7 +44,7 @@
             //success
             $user->create();
             return json_encode(array(
-                "status" =>"sucess"
+                "status" =>"success"
             ));
         }
 
@@ -72,9 +72,9 @@
             }
         }
 
-        function shipment($user){
-            return $user->shipment();
-        }
+        // function shipment($user){
+        //     return $user->shipment();
+        // }
     }
 
         

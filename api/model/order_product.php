@@ -32,7 +32,9 @@
                     " WHERE product_id =".$this->product_id." AND order_id=".$this->order_id.
                     " AND order_id = (SELECT id FROM orders WHERE user_id =".$userId." AND orders.deliver_status=0)";
             $result = mysqli_query($conn, $query);
-            return mysqli_affected_rows($conn);
+            $affected = mysqli_affected_rows($conn);
+            mysqli_close($conn);
+            return $affected;
         }
 
         
@@ -43,7 +45,9 @@
                 " AND order_id = (SELECT orders.id FROM orders WHERE user_id = ".$userId.
                 " AND deliver_status = 0)";
             mysqli_query($conn, $query);
-            return mysqli_affected_rows($conn);
+            $affected = mysqli_affected_rows($conn);
+            mysqli_close($conn);
+            return $affected;
         }
 
         

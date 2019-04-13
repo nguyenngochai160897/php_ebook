@@ -1,6 +1,6 @@
 <?php
     require_once __DIR__."/object.php";
-    require_once __DIR__."db.php";
+    require_once __DIR__."/db.php";
     class Order{
         public $user_id, $order_date, $deliver_status, $total_price, $id;
         public $table = "orders";
@@ -74,7 +74,9 @@
                     " WHERE id = ".$this->id;
             $result = mysqli_query($conn, $query);
 
-            return mysqli_affected_rows($conn);
+            $affected = mysqli_affected_rows($conn);
+            mysqli_close($conn);
+            return $affected;
         }
 
         function updateTotalPrice(){
@@ -84,10 +86,24 @@
                 orders.deliver_status=0 AND orders.user_id=".$this->user_id.")";
             $result = mysqli_query($conn, $query);
 
-            return mysqli_affected_rows($conn);
+            $affected = mysqli_affected_rows($conn);
+            mysqli_close($conn);
+            return $affected;
         }
 
-        
+        function gets(){
+            $conn = connectDB();
+            $query = "SELECT * FROM ".$this->table;
+            $result = mysqli_query($conn, $query);
+            $arr = array();
+            if(mysqli_num_rows($result)){
+                while($row = mysqli_fetch_assoc($result)){
+                    array_push($arr, $row);
+                }
+            }
+            mysqli_close($conn);
+            return ($arr);
+        }
     }
 
 ?>

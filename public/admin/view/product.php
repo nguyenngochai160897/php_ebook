@@ -169,7 +169,7 @@ function validateFormAdd() {
         $(".alert-year-add").hide();
     }
 
-    if ($("#price-add").val() == "" || !$.isNumeric($("#price-add").val())) {
+    if ($("#price-add").val() == "" || isNaN(parseFloat($("#price-add").val()))) {
         $("#price-add").focus()
         $(".alert-price-add").show();
         return false;
@@ -177,7 +177,7 @@ function validateFormAdd() {
         $(".alert-price-add").hide();
     }
 
-    if ($("#amount-add").val() == "") {
+    if ($("#amount-add").val() == "" || !Number.isInteger(parseFloat($("#amount-add").val()))) {
         $("#amount-add").focus()
         $(".alert-amount-add").show();
         return false;
@@ -229,7 +229,7 @@ function validateFormUpdate() {
         $(".alert-year-update").hide();
     }
 
-    if ($("#price-update").val() == "" || !$.isNumeric($("#price-update").val())) {
+    if ($("#price-update").val() == "" || isNaN(parseFloat($("#price-update").val()))) {
         $("#price-update").focus()
         $(".alert-price-update").show();
         return false;
@@ -237,7 +237,7 @@ function validateFormUpdate() {
         $(".alert-price-update").hide();
     }
 
-    if ($("#amount-update").val() == "") {
+    if ($("#amount-update").val() == "" || !Number.isInteger(parseFloat($("#amount-update").val()))) {
         $("#amount-update").focus()
         $(".alert-amount-update").show();
         return false;
@@ -259,10 +259,11 @@ function validateFormUpdate() {
 function getProduct(id) {
     let src = "<?php echo base_url();?>uploads/";
     $.ajax({
-        url: "<?php echo base_url();?>api/product.php?id=" + id,
+        url: "<?php echo base_url();?>api/product.php?id="+id,
         method: "GET",
         dataType: "json",
         success: function(res) {
+            console.log("ree")
             let data = res.record[0];
             $("#id-update").val(data.id)
             $("#title-update").val(data.title)
@@ -357,6 +358,8 @@ $(document).ready(function() {
             console.log(product)
             editProduct(product);
             getAllProduct()
+            $("#updateModal").modal("hide");
+            alert("Update success");
         }
 
     })
@@ -445,7 +448,7 @@ $(document).ready(function() {
                             </div>
                             <div class="form-group col-sm-4">
                                 <label>Amount</label>
-                                <input type="number" class="form-control" placeholder="Amount" id="amount-add">
+                                <input type="text" class="form-control" placeholder="Amount" id="amount-add">
                                 <div class="alert alert-danger alert-amount-add" role="alert">
                                     Amount is required & integer
                                 </div>
@@ -528,7 +531,7 @@ $(document).ready(function() {
                             <div class="form-group col-sm-8">
                                 <label>Title</label>
                                 <input type="text" class="form-control" placeholder="Product'title" id="title-update">
-                                <div class="alert alert-danger alert-title-add" role="alert">
+                                <div class="alert alert-danger alert-title-update" role="alert">
                                     Title is required
                                 </div>
                             </div>
@@ -585,7 +588,7 @@ $(document).ready(function() {
                             </div>
                             <div class="form-group col-sm-4">
                                 <label>Amount</label>
-                                <input type="number" class="form-control" placeholder="Amount" id="amount-update">
+                                <input type="text" class="form-control" placeholder="Amount" id="amount-update">
                                 <div class="alert alert-danger alert-amount-update" role="alert">
                                     Amount is required
                                 </div>

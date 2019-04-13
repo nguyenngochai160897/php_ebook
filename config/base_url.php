@@ -1,5 +1,5 @@
 <?php
     function base_url(){
-        return "http://ebookshop:8081/";
+        return "http://localhost:8081/thuong-mai-dien-tu/php_ebook/";
     }
 ?>

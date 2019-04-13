@@ -2,7 +2,7 @@
     require_once __DIR__."/object.php";
     require_once __DIR__."/db.php";
     class User{
-        public $email, $password, $phone, $last_name, $first_name, $ship_address, $account_type, $id;
+        public $email, $password, $phone, $last_name, $first_name, $address, $account_type, $id;
         public $table = "users";
 
         function gets(){
@@ -26,6 +26,8 @@
                                                 "password = '".password_hash($this->password, PASSWORD_DEFAULT)."', ".
                                                 "first_name = N'".$this->first_name."', ".
                                                 "last_name = N'".$this->last_name."', ".
+                                                "phone = N'".$this->phone."', ".
+                                                "address = N'".$this->address."', ".
                                                 "account_type = '".$this->account_type."' ";
             $row = mysqli_query($conn, $query);
             mysqli_close($conn);
@@ -52,17 +54,17 @@
             return mysqli_affected_rows($conn);
         }
 
-        function shipment(){
-            $conn = connectDB();
-            $query = "UPDATE ".$this->table." SET ".
-                                            "first_name = N'".$this->first_name."', ".
-                                            "last_name = N'".$this->last_name."', ".
-                                            "ship_address = N'".$this->ship_address."', ".
-                                            "phone = '".$this->phone."', ".
-                                            "WHERE id = ".$this->id;
-            $result = mysqli_query($conn, $query);
-            return mysqli_affected_rows($conn);
-        }
+        // function shipment(){
+        //     $conn = connectDB();
+        //     $query = "UPDATE ".$this->table." SET ".
+        //                                     "first_name = N'".$this->first_name."', ".
+        //                                     "last_name = N'".$this->last_name."', ".
+        //                                     "ship_address = N'".$this->ship_address."', ".
+        //                                     "phone = '".$this->phone."', ".
+        //                                     "WHERE id = ".$this->id;
+        //     $result = mysqli_query($conn, $query);
+        //     return mysqli_affected_rows($conn);
+        // }
 
         function login(){
             $conn = connectDB();

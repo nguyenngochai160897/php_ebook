@@ -14,10 +14,17 @@
     if($method == "GET"){
         if(isset($_GET['id'])){
             $data = $productCtr->fetch($_GET['id']);
-            echo $data;
+            echo $data; return;
         }
+        
         else{
-            echo $productCtr->fetch();
+            echo $productCtr->fetch(); return;
+        }
+        if(isset($_GET['best'])){
+            $product = new Product();
+            $data = $product->getBestProduct();
+            echo json_encode($data);
+            return;
         }
     }
     //create a product
