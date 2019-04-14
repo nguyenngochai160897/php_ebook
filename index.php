@@ -31,23 +31,6 @@
 </head>
 
 <script>
-function getAllCategories() {
-    $.ajax({
-        url: "<?php echo base_url();?>api/category.php",
-        method: "GET",
-        dataType: "json",
-    }).done(function(res) {
-        let i = res.records.length - 1;
-        let data = res.records;
-        let html = "";
-        while (i >= 0) {
-            html += '<li><span><a href="getAllProductByCategory.php?id=' + data[i].id + '">' + data[i].name +
-                '</a></span></li>'
-            i--;
-        }
-        $(".list").html(html)
-    })
-}
 
 function getBestProduct() {
     $.ajax({
@@ -95,7 +78,6 @@ function getNewProduct() {
 
 
 $(document).ready(function() {
-    getAllCategories();
     getBestProduct();
     getNewProduct();
     
@@ -104,7 +86,6 @@ $(document).ready(function() {
 
 <body>
     <?php require_once __DIR__."/header.php";?>
-
 
     <section class="main">
         <div class="container">

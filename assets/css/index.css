@@ -589,3 +589,56 @@ i.fa.fa-arrow-up {
 #show-search-product .info span {
   font-size: 13px;
 }
+
+#show-small-shop-cart{
+  background-color: white;
+  color:black;
+  width:200px;
+  top: 41px;
+  right: 17px;
+  display:none;
+  z-index:100;
+  border: 1px solid rgb(194, 193, 193);
+}
+
+.giohang:hover{
+  background: white;
+  color:black;
+}
+.giohang:hover + #show-small-shop-cart{
+  display: block;
+}
+
+#show-small-shop-cart:hover{
+  display: block;
+}
+#show-small-shop-cart:hover + .giohang{
+  background: white;
+  color:black;
+}
+
+#show-small-shop-cart img{
+  height:45px;
+  margin-left:5px;
+}
+#show-small-shop-cart a{
+  color:black;
+  margin-top:10px;
+}
+#show-small-shop-cart .title{
+  overflow: hidden;
+  height:30px;
+  text-align:left;
+  padding:0px;
+  text-overflow: ellipsis;
+  font-size:18px;
+  font-weight:normal
+}
+
+#show-small-shop-cart .price{
+  position:absolute;
+  top:27px;
+  font-size:12px;
+  color:palevioletred;
+  font-weight:normal
+}

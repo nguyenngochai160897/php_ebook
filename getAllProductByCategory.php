@@ -50,7 +50,7 @@
                             '<div class="motproduct">'+
                                 '<div class="products">'+
                                     '<div class="image">'+
-                                        '<a href="#"><img src="<?php echo base_url();?>uploads/'+element.picture+'"></a>'+
+                                        '<a href="./chitietsp.php?id='+element.id+'"><img src="<?php echo base_url();?>uploads/'+element.picture+'"></a>'+
                                     '</div>'+
                                     '<div class="productname">'+
                                         '<a href="">'+element.title+'</a>'+

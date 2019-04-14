@@ -3,6 +3,7 @@
     require_once __DIR__."/config/helper.php";
     sessionStart();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,6 +26,43 @@
     <!-- 	<link rel="stylesheet" type="text/css" href="./assets/plugin/OwlCarousel2-2.3.4/owl.carousel.min.css">
 	<script src="./assets/plugin/OwlCarousel2-2.3.4/owl.carousel.min.js"></script>
  -->
+ <?php
+        if(isset($_POST['product-title'])){
+            if(!isset($_SESSION['product-list'])){
+                $_SESSION['product-list']=array();
+            }
+            
+            if(count($_SESSION['product-list']) == 0) {
+                 
+                $arr = array(
+                    "product-id"    => $_GET['id'], 
+                    "product-title" => $_POST['product-title'],
+                    "product-price" => $_POST['product-price'],
+                    "product-picture" => $_POST['product-picture'],
+                    "product-amount"=> 1,
+                    "product-existed"=>$_POST['product-existed']
+                );
+                array_push($_SESSION['product-list'], $arr);
+            }
+            $check = true;
+            for($i = 0 ;$i<count($_SESSION['product-list']); $i++){
+                if($_SESSION['product-list'][$i]["product-id"] == $_GET['id']){
+                    $check=false;
+                }
+            }
+            if($check == true){
+                $arr = array(
+                    "product-id"    => $_GET['id'], 
+                    "product-title" => $_POST['product-title'],
+                    "product-price" => $_POST['product-price'],
+                    "product-picture" => $_POST['product-picture'],
+                    "product-amount"=> 1,
+                    "product-existed"=>$_POST['product-existed'],
+                );
+                array_push($_SESSION['product-list'], $arr);
+            }
+        }
+    ?>
     <script>
     function GetURLParameter(sParam) {
         var sPageURL = window.location.search.substring(1);
@@ -212,46 +250,7 @@
         </div> <!-- het container -->
     </section>
     <?php require_once __DIR__."/footer.php";?>
-    <?php
-        if(isset($_POST['product-title'])){
-            if(!isset($_SESSION['product-list'])){
-                $_SESSION['product-list']=array();
-            }
-            
-            if(count($_SESSION['product-list']) == 0) {
-                 
-                $arr = array(
-                    "product-id"    => $_GET['id'], 
-                    "product-title" => $_POST['product-title'],
-                    "product-price" => $_POST['product-price'],
-                    "product-picture" => $_POST['product-picture'],
-                    "product-amount"=> 1,
-                    "product-existed"=>$_POST['product-existed']
-                );
-                array_push($_SESSION['product-list'], $arr);
-            }
-            echo "<pre>";
-            var_dump($_SESSION['product-list']);
-            echo "</pre>";
-            $check = true;
-            for($i = 0 ;$i<count($_SESSION['product-list']); $i++){
-                if($_SESSION['product-list'][$i]["product-id"] == $_GET['id']){
-                    $check=false;
-                }
-            }
-            if($check == true){
-                $arr = array(
-                    "product-id"    => $_GET['id'], 
-                    "product-title" => $_POST['product-title'],
-                    "product-price" => $_POST['product-price'],
-                    "product-picture" => $_POST['product-picture'],
-                    "product-amount"=> 1,
-                    "product-existed"=>$_POST['product-existed'],
-                );
-                array_push($_SESSION['product-list'], $arr);
-            }
-        }
-    ?>
+    
 </body>
 
 </html>

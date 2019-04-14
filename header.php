@@ -1,3 +1,35 @@
+<?php
+    require_once __DIR__."/config/helper.php";
+    sessionStart();
+    
+    function showAmountCart(){
+        $amount=0;
+        if(isset($_SESSION['product-list'])){
+            $amount=count($_SESSION['product-list']);
+        }
+        return $amount;
+    }
+    function showSmallCart(){
+        $html="";
+        if(isset($_SESSION['product-list'])){
+            foreach($_SESSION['product-list'] as $product){
+                $html.='<a class="row" href="./chitietsp.php?id='.$product['product-id'].'">'.
+                            '<img src="./uploads/'.$product['product-picture'].'" class="col-3">'.
+                            '<div class="row col-9" >'.
+                                '<p class="title">'.$product['product-title'].'</p>'.
+                                '<p class="price">'.$product['product-price'].' ₫</p>'.
+                            '</div>'.
+                        '</a>'
+                        ;
+            }
+        }
+        else{
+            
+        }
+        return $html;
+    }
+    
+?>
 <div class="header">
     <div class="top-header">
         <div class="container">
@@ -16,7 +48,7 @@
                         <input type="submit" class="btntimkiem form-control" name="btntimkiem" value="Tìm">
                     </form>
                     <div class="list-group position-absolute d-none" id="show-search-product">
-                        <div class="small-product">
+                        <!-- <div class="small-product">
                             <a href="#" class="row">
                                 <div class="col-2 image">
                                     <img src="<?php echo base_url();?>uploads/21-chien-luoc-marketing-hang-dau__74151_thum_135.jpg"
@@ -29,21 +61,41 @@
                                     <span class="prices">95.200 ₫</span>
                                 </div>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
-                </div> 
+                </div>
 
                 <div class="col-3">
                     <div class="login">
                         <a href="./login.php" title="" class="login"><i class="fa fa-user text-18"></i><span>Đăng
                                 nhập</span></a>
-                        <a href="./cart.php" title="" class="giohang">Giỏ hàng <span>(0)</span><i
+                        <a href="./cart.php" title="" class="giohang">Giỏ hàng <span>(<?php echo showAmountCart();?>)</span><i
                                 class="fas fa-sort-down"></i></a>
+                        <div id="show-small-shop-cart" class="position-absolute p-1">
+                            <!-- <a class="row" href="#">
+                                <img src="<?php echo base_url();?>uploads/21-chien-luoc-marketing-hang-dau__74151_thum_135.jpg" class="col-3">
+                                <div class="row col-10" >
+                                    <p class="title">Tensalgjjfgfgjfogjggoghgfugghfgfhklfhu</p>
+                                    <p class="price">kfhgkfdughf ₫</p>
+                                </div>
+                            </a>
+                            <hr>
+                            <a class="row" href="#">
+                                <img src="<?php echo base_url();?>uploads/21-chien-luoc-marketing-hang-dau__74151_thum_135.jpg" class="col-3">
+                                <div class="row col-10" >
+                                    <p class="title">Tensalgjjfgfgjfogjggoghgfugghfgfhklfhu</p>
+                                    <p class="price">kfhgkfdughf ₫</p>
+                                </div>
+                            </a> -->
+                            <?php echo showSmallCart();?>
+                        </div>
                     </div>
-                </div> 
+
+                </div>
+
             </div>
         </div>
-    </div> 
+    </div>
     <div class="bottom-header">
         <div class="container">
             <div class="row">
@@ -75,7 +127,7 @@
                         <li><span><a href="">Sách chuyên ngành</a></span></li>
                         <li><span><a href="">Văn Phòng Phẩm - Quà Tặng</a></span></li>
                     </ul>
-                </div> 
+                </div>
                 <div class="hotline">
                     <i class="fas fa-phone"></i>
                     <span class="hline">Hotline:</span>
@@ -83,8 +135,8 @@
                 </div>
             </div>
         </div>
-    </div> 
-</div> 
+    </div>
+</div>
 
 <script>
 function getAllCategories() {
@@ -149,7 +201,7 @@ $(document).ready(function() {
         }
         searchProduct(search);
     })
-   
+
     $("#search").on("keyup", function() {
         let search = $(this).val();
         if (search != "") {

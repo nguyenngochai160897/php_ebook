@@ -16,6 +16,9 @@
     <link rel="stylesheet" type="text/css" href="./assets/css/chitietsp-login-register.css">
     <!-- jQuery -->
     <script src="./assets/plugin/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
     <script src="./assets/js/chitietsp.js"></script>
     <style>
     .increase {
@@ -33,9 +36,11 @@
     <?php
         function getAllTotal(){
             $total=0;
-            if(count($_SESSION['product-list'])>0){
-                for($i = 0; $i< count($_SESSION['product-list']); $i++){
-                    $total+=$_SESSION['product-list'][$i]['product-price']*$_SESSION['product-list'][$i]['product-amount'];
+            if(isset($_SESSION['product-list'])){
+                if(count($_SESSION['product-list'])>0){
+                    for($i = 0; $i< count($_SESSION['product-list']); $i++){
+                        $total+=$_SESSION['product-list'][$i]['product-price']*$_SESSION['product-list'][$i]['product-amount'];
+                    }
                 }
             }
             return $total;
@@ -77,12 +82,12 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Hình ảnh</th>
-                            <th scope="col">Tên</th>
-                            <th scope="col">Giá</th>
-                            <th scope="col">Số Lượng</th>
-                            <th scope="col">Thành Tiền</th>
+                            <th width="5%">#</th>
+                            <th width="25%">Hình ảnh</th>
+                            <th width="20%">Tên</th>
+                            <th scope="10%">Giá</th>
+                            <th scope="10%">Số Lượng</th>
+                            <th scope="10%">Thành Tiền</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -104,7 +109,7 @@
                                                     <input disabled name="input-product-amount" style="width: 40px; height: 40px; margin-left: 5px" type="text" value='.$_SESSION['product-list'][$i]['product-amount'].'>
                                                     <button type="submit" name="increase" value="+" class="increase btn btn-primary">+</button>'.
                                                 '</td>'.
-												'<td class="product-total">'.$_SESSION['product-list'][$i]['product-price']*$_SESSION['product-list'][$i]['product-amount'].'</td>'.
+												'<td class="product-total">'.$_SESSION['product-list'][$i]['product-price']*$_SESSION['product-list'][$i]['product-amount'].' ₫</td>'.
                                             '</form>'.
                                             '</tr>';
 								}
@@ -166,7 +171,7 @@
                     </div>
                 </div>
                 <div class="form-right">
-                    <form action="post">
+                    <form action="" method="POST">
                         <div class="field">
                             <div class="textlabel">
                                 <label for="diachi">Địa chỉ nhận hàng:</label>
@@ -187,10 +192,13 @@
                             </div>
                             <input type="text" name="email" id="email">
                         </div>
+                        <div class="xacnhan">
+                            <button class="btn w-100%">Xac nhan</button>
+                        </div>
                     </form>
                 </div>
                 <div class="clear"></div>
-                <div class="xacnhan">Xác nhận</div>
+                
             </div>
         </div>
     </section>
