@@ -12,10 +12,10 @@
                         "order_id =".$this->order_id.", ".
                         "product_id=".$this->product_id.", ".
                         "num_of_product=".$this->num_of_product.", ".
-                        "price=".$this->price;
+                        "price=".$this->price;         
             $result = mysqli_query($conn, $query);
-            echo $result;
             mysqli_close($conn);
+            return $result;
         }
 
         function update(){

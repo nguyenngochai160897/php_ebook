@@ -2,7 +2,7 @@
     require_once __DIR__."/object.php";
     require_once __DIR__."/db.php";
     class Order{
-        public $user_id, $order_date, $deliver_status, $total_price, $id;
+        public $user_id, $order_date, $deliver_status, $total_price, $id, $address;
         public $table = "orders";
 
         // function fetchAll(){
@@ -49,12 +49,14 @@
         }
 
         function create(){
+            $conn = connectDB();
             $query = "INSERT INTO ".$this->table.
                     " SET ". 
                     "user_id = '".$this->user_id."', ".
                     "deliver_status = '".$this->deliver_status."', ".
-                    "total_price = '".$this->total_price."'";
-            $result = mysqli_query($this->conn, $query);
+                    "total_price = '".$this->total_price."', ".
+                    "address = '".$this->address."'";
+            $result = mysqli_query($conn, $query);
             $query = "SELECT id FROM ".$this->table." WHERE user_id=".$this->user_id.
                     " AND status_deliver=0";
             $order_id = mysqli_insert_id($conn);

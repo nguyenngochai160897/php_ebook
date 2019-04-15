@@ -1,5 +1,7 @@
 <?php
     require_once __DIR__."/config/helper.php";
+    require_once __DIR__."/api/model/user.php";
+    require_once __DIR__."/api/controller/user.php";
     sessionStart();
     
     function showAmountCart(){
@@ -28,8 +30,25 @@
         }
         return $html;
     }
-    
+    function checkLogin(){
+        $html = '<a href="./login.php" title="" class="login"><i class="fa fa-user text-18"></i><span>Đăng nhập</span></a>';
+        sessionStart();
+        if (checkSession() == "customer"){
+            $data = (new user())->gets();
+            foreach($data as $d){
+                if ($d['id'] == $_SESSION['userId']) 
+                    $user = $d;
+            }
+            
+            $html = '<i class="fa fa-user text-18"></i> '.$user['first_name'].' '.$user['last_name'].'      <a href="./logout.php"><span class="glyphicon glyphicon-log-out"></span></a>';
+        }
+        return $html;
+    }
+  
 ?>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <div class="header">
     <div class="top-header">
         <div class="container">
@@ -66,9 +85,8 @@
                 </div>
 
                 <div class="col-3">
-                    <div class="login">
-                        <a href="./login.php" title="" class="login"><i class="fa fa-user text-18"></i><span>Đăng
-                                nhập</span></a>
+                    <div class="login" style="padding-left: 0px">
+                        <?php echo checkLogin(); ?>
                         <a href="./cart.php" title="" class="giohang">Giỏ hàng <span>(<?php echo showAmountCart();?>)</span><i
                                 class="fas fa-sort-down"></i></a>
                         <div id="show-small-shop-cart" class="position-absolute p-1">
@@ -191,6 +209,7 @@ function searchProduct(value) {
 
 $(document).ready(function() {
     getAllCategories();
+     
     $(".btntimkiem").on("click", function(e) {
         e.preventDefault();
         let search = $("#search").val();

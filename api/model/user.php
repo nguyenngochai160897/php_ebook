@@ -27,10 +27,11 @@
                                                 "first_name = N'".$this->first_name."', ".
                                                 "last_name = N'".$this->last_name."', ".
                                                 "phone = N'".$this->phone."', ".
-                                                "address = N'".$this->address."', ".
+                                                "ship_address = N'".$this->address."', ".
                                                 "account_type = '".$this->account_type."' ";
             $row = mysqli_query($conn, $query);
             mysqli_close($conn);
+            return $row;
         }
 
         function update(){

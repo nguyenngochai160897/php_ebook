@@ -50,7 +50,7 @@
     }
 
     function requireForm(user) {
-        console.log(user)
+        //console.log(user)
         if (user.email == "") {
             $("#email-valid").html("Email là bắt buộc")
         } else {
@@ -93,13 +93,14 @@
                 email: $('#idemail').val(),
                 password: $('#idpassword').val()
             }
-            console.log(user)
+           
             e.preventDefault();
             requireForm(user)
             let data = register(user)
+             console.log(data)
             if (data.status == "success") {
                 alert("Đăng ký thành công")
-				$("#email-valid").html("")
+				$("#email-valid").html(data.message)
             }
 			else{
                 if(data.message!="invalid input")

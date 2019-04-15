@@ -9,7 +9,7 @@
         }
 
         function create($orderProduct){
-            $orderProduct->create();            
+            return $orderProduct->create();            
         }
 
         //Check the existence of a product_id in a session

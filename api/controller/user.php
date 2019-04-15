@@ -42,12 +42,12 @@
             }
             
             //success
-            $user->create();
+            $query = $user->create();
             return json_encode(array(
+                "message" =>$query,
                 "status" =>"success"
             ));
         }
-
         function verifyPassword($user) {
             if(!$user->verifyPassword()){
                 return json_encode(
@@ -71,7 +71,7 @@
                 );
             }
         }
-
+        
         // function shipment($user){
         //     return $user->shipment();
         // }
