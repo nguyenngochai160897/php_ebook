@@ -103,6 +103,7 @@
                     let data = thanhToan(infor);
                     if (data.status == "success") {
                         alert(data.message);
+                        window.location.replace("<?php echo base_url() ?>");
                         let result_mail = guiMail(infor);
                     }
                     else{
