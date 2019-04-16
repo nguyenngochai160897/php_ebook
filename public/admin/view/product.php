@@ -4,40 +4,139 @@
 
 <script>
 $(".product").addClass("active")
+let pageCurrent = 1,
+    limit = 3,
+    range = 3;
+let pageTotal;
+
 
 function getAllProduct() {
-    let html = ""
-    let srcImg = "<?php echo base_url();?>uploads/";
-    $.ajax({
-        async: false,
-        url: "<?php echo base_url();?>api/product.php",
-        method: "GET",
-        dataType: "json",
-        success: function(res) {
-            console.log(res)
-            let data = res.records;
-            for (let i = 0; i < data.length; i++) {
-                html += "<tr>" +
-                    '<td class="align-middle">' + data[i].id + '</td>' +
-                    ' <td>' +
-                    '<img src="' + srcImg + data[i].picture + '" class="img-thumbnail">' +
-                    ' </td>' +
-                    '<td class="align-middle">' + data[i].title + '</td>' +
-                    '<td class="align-middle">' + data[i].num_existed + '</td>' +
-                    '<td class="align-middle">' + data[i].price + 'VND</td>' +
-                    '<td class="align-middle">' + data[i].category_name + '</td>' +
-                    '<td class="align-middle">' +
-                    '<button class="btn btn-danger" id="' + data[i].id + '">Delete</button>' +
-                    '<div class="dropdown-divider"></div>' +
-                    '<button class="btn btn-success btn-update" data-toggle="modal" id="' + data[i].id +
-                    '"' +
-                    ' data-target="#updateModal">Update</button>' +
-                    '</td>' +
-                    '</tr>';
-            }
-            $(".body-product").html(html);
+    // return new Promise((resolve) => {
+    //     resolve(
+            $.ajax({
+                async:false,
+                url: "<?php echo base_url();?>api/product.php",
+                method: "GET",
+                dataType: "json",
+                success: function(res) {
+                   
+                    pageTotal = Math.ceil(res.records.length / limit);
+                    // let html = ""
+                    // let srcImg = "<?php echo base_url();?>uploads/";
+                    // for (let i = 0; i < data.length; i++) {
+                    //     html += "<tr>" +
+                    //         '<td class="align-middle">' + data[i].id + '</td>' +
+                    //         ' <td>' +
+                    //         '<img src="' + srcImg + data[i].picture + '" class="img-thumbnail">' +
+                    //         ' </td>' +
+                    //         '<td class="align-middle">' + data[i].title + '</td>' +
+                    //         '<td class="align-middle">' + data[i].num_existed + '</td>' +
+                    //         '<td class="align-middle">' + data[i].price + 'VND</td>' +
+                    //         '<td class="align-middle">' + data[i].category_name + '</td>' +
+                    //         '<td class="align-middle">' +
+                    //         '<button class="btn btn-danger" id="' + data[i].id + '">Delete</button>' +
+                    //         '<div class="dropdown-divider"></div>' +
+                    //         '<button class="btn btn-success btn-update" data-toggle="modal" id="' + data[i].id +
+                    //         '"' +
+                    //         ' data-target="#updateModal">Update</button>' +
+                    //         '</td>' +
+                    //         '</tr>';
+                    // }
+                    // $(".body-product").html(html);
+                }
+            })
+
+        // )
+    // })
+}
+
+function pagination() {
+    // return new Promise((resolve) => {
+    //     resolve(
+            $.ajax({
+                url: "<?php echo base_url();?>/api/product.option.php",
+                method: "POST",
+                dataType: "json",
+                data: {
+                    page: pageCurrent,
+                    limit: limit,
+                    range: range
+                },
+                success: function(data) {
+                    let srcImg = "<?php echo base_url();?>uploads/";
+                    let html = "";
+                    // data=data.records
+                    for (let i = 0; i < data.length; i++) {
+                        html += "<tr>" +
+                            '<td class="align-middle">' + data[i].id + '</td>' +
+                            ' <td>' +
+                            '<img src="' + srcImg + data[i].picture + '" class="img-thumbnail">' +
+                            ' </td>' +
+                            '<td class="align-middle">' + data[i].title + '</td>' +
+                            '<td class="align-middle">' + data[i].num_existed + '</td>' +
+                            '<td class="align-middle">' + data[i].price + 'VND</td>' +
+                            '<td class="align-middle">' + data[i].category_name + '</td>' +
+                            '<td class="align-middle">' +
+                            '<button class="btn btn-danger" id="' + data[i].id +
+                            '">Delete</button>' +
+                            '<div class="dropdown-divider"></div>' +
+                            '<button class="btn btn-success btn-update" data-toggle="modal" id="' +
+                            data[i].id +
+                            '"' +
+                            ' data-target="#updateModal">Update</button>' +
+                            '</td>' +
+                            '</tr>';
+                    }
+                    $(".body-product").html(html);
+                }
+            })
+            // )
+    // })
+}
+
+function showPagination() {
+    let min, max;
+    if (range > pageTotal) {
+        min = 1;
+        max = pageTotal;
+    } else {
+        var mid = 3;
+        console.log("pageCurrent", pageCurrent)
+        min = pageCurrent - mid + 1;
+        max = pageCurrent + mid - 1;
+        console.log("min1:", min)
+        console.log("max1:", max)
+        if (min < 1) {
+            min = 1;
+            max = range;
+            console.log("2")
+        } else if (max > pageTotal) {
+            max = pageTotal;
+            min = pageTotal - range;
+            console.log("3")
         }
-    })
+    }
+    let html = "";
+    if (pageCurrent > 1) {
+        html += '<li class="page-item"><button class="page-link" id="' + (pageCurrent - 1) +
+            '">Previous</button></li>';
+    }
+
+    for (let i = min; i <= max; i++) {
+        if (i == pageCurrent) {
+            html += '<li class="page-item"><button class="btn btn-primary" id="' + i + '">' + i +
+                '</button></li>';
+        } else {
+            html += '<li class="page-item"><button class="page-link" id="' + i + '">' + i +
+                '</button></li>';
+        }
+    }
+    if (pageCurrent < pageTotal) {
+        html += '<li class="page-item"><button class="page-link" id="' + (pageCurrent + 1) +
+            '">Next</button></li>';
+    }
+    $(".pagination").html(html)
+
 }
 
 function getAllCategory() {
@@ -259,7 +358,7 @@ function validateFormUpdate() {
 function getProduct(id) {
     let src = "<?php echo base_url();?>uploads/";
     $.ajax({
-        url: "<?php echo base_url();?>api/product.php?id="+id,
+        url: "<?php echo base_url();?>api/product.php?id=" + id,
         method: "GET",
         dataType: "json",
         success: function(res) {
@@ -280,13 +379,17 @@ function getProduct(id) {
     })
 }
 
-
+function show() {
+    getAllProduct();
+    pagination();
+    showPagination()
+}
 
 $(document).ready(function() {
     $(".alert").hide();
-    getAllProduct();
-    getAllCategory();
 
+    getAllCategory();
+    show();
 
     $("#picture-update").on("change", function() {
         $("#picture-name-update").html($(this)[0].files[0].name)
@@ -362,6 +465,11 @@ $(document).ready(function() {
             alert("Update success");
         }
 
+    })
+
+    $(".pagination").on("click", ".page-link", function() {
+        pageCurrent = parseInt($(this).attr("id"))
+        show()
     })
 })
 </script>
@@ -495,23 +603,91 @@ $(document).ready(function() {
             </tr>
         </thead>
         <tbody class="body-product lead">
-            <!-- <tr>
-                <td class="align-middle">1</td>
-                <td>
-                    <img src="image/product-1.png" alt="err" class="img-thumbnail">
-                </td>
-                <td class="align-middle">Qua tang cuoc song</td>
-                <td class="align-middle">10</td>
-                <td class="align-middle">10$</td>
-                <td class="align-middle">Doi song</td>
-                <td class="align-middle">
-                    <button class="btn btn-danger">Delete</button>
-                    <div class="dropdown-divider"></div>
-                    <button class="btn btn-success" data-toggle="modal" data-target="#updateModal">Update</button>
-                </td>
-            </tr> -->
+<?php
+    // require_once __DIR__."/../../../api/model/product.php";
+    // $product = new Product();
+    // $page=$_GET['page'];
+    // $limit=5;
+    // $range=5;
+    // $productList = $product->getProductByOption($page, $limit, $range, false);
+    // $html="";
+    // foreach($productList as $product){
+    //     $html.="<tr>".
+    //             '<td class="align-middle">'.$product['id'].'</td>'.
+    //             ' <td>'.
+    //                 '<img src="'.base_url().'uploads/'.$product['picture'].'" class="img-thumbnail">'.
+    //             ' </td>'.
+    //             '<td class="align-middle">'.$product['title'].'</td>'.
+    //             '<td class="align-middle">'.$product['num_existed'].'</td>'.
+    //             '<td class="align-middle">'.$product['price'].' VND</td>'.
+    //             '<td class="align-middle">'.$product['category_name'].'</td>'.
+    //             '<td class="align-middle">'.
+    //                 '<button class="btn btn-danger" id="'.$product['id'].'">Delete</button>'.
+    //                 '<div class="dropdown-divider"></div>'.
+    //                 '<button class="btn btn-success btn-update" data-toggle="modal" id="'.$product['id'].'" data-target="#updateModal">Update</button>'.
+    //             '</td>'.
+    //         '</tr>';
+    // }
+    // echo $html;
+    
+?>
         </tbody>
     </table>
+    <nav aria-label="Page navigation example">
+  <ul class="pagination float-right">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+
+<?php
+    // require_once __DIR__."/../../../api/model/product.php";
+    // $p = new Product();
+    // $p->table="products";
+    // $productList = $p->fetchAllByCategory();
+    // $recordTotal = count($productList);
+    // $pageTotal = ceil($recordTotal/$limit);
+    // $min=0; $max=0;
+    // if($pageTotal < $range){
+    //     $min=1;
+    //     $max = $pageTotal;
+    // }
+    // else{
+    //     $mid = ceil($range/2);
+    //     $min=$page-$mid+1;
+    //     $max =$page+$mid-1;
+    //     if($min<1){
+    //         $min=1;
+    //         $max=$range;
+    //     }
+    //     else if($max>$pageTotal){
+    //         $max=$pageTotal;
+    //         $min=$pageTotal-$range+1;
+    //     }
+    // }
+    // $p='<nav class="float-right">'.
+    //     '<ul class="pagination">';
+    // if($page>1){
+    //     $p.='<li class="page-item"><a href="'.base_url().'public/admin/view/product.php?page='.($page-1).'" class="page-link">Previous</a></li>';
+    // }
+    // for($i=$min;$i<=$max;$i++){
+    //     if($page==$i){
+    //         $p.='<li class="page-item"><button class="btn btn-primary">'.$i.'</button></li>';
+    //     }
+    //     else{
+    //         $p.='<li class="page-item"><a href="'.base_url().'public/admin/view/product.php?page='.($i).'" class="page-link">'.$i.'</a></li>';
+    //     }
+    // }
+    // if($page<$pageTotal){
+    //     $p.='<li class="page-item"><a href="'.base_url().'public/admin/view/product.php?page='.($page+1).'" class="page-link">Previous</a></li>';
+    // }
+    
+    // $p.=' </ul></nav>';
+    // echo $p;
+?>
 
     <!-- Modal update -->
     <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -620,6 +796,8 @@ $(document).ready(function() {
             </div>
         </div>
     </div>
+
+
 </main>
 <script>
 function readURL(input) {
@@ -651,7 +829,7 @@ function readURL_ADD(input) {
 $("#picture-update").change(function() {
     readURL(this);
 });
-$("#picture-add").change(function(){
+$("#picture-add").change(function() {
     readURL_ADD(this)
 })
 </script>

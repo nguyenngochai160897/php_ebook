@@ -117,7 +117,7 @@
             if($page && $limit && $range && !$category){
                 $offset = ($page-1)*$limit;
                 $query = "SELECT * FROM products LIMIT ".$offset.", ".$limit;
-                
+                $query = "SELECT products.*,categories.name as category_name FROM products, categories WHERE products.category_id=categories.id ORDER BY products.id ASC LIMIT ".$offset.", ".$limit;
             }
             else if(!$page && !$limit && !$range && $category){
                 $query = "SELECT * FROM products WHERE category_id=".$category;
