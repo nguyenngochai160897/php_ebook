@@ -74,7 +74,7 @@
                             }
                             else if(data.account_type == "admin"){
                                 $(".form-alert").hide();
-                                window.location  = "<?php echo base_url();?>public/admin/view/index.php";
+                                window.location  = "<?php echo base_url();?>public/admin/view/transaction.php";
                             }
                         }
                     }

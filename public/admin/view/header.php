@@ -55,13 +55,13 @@
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
-                        <h3>
+                        <!-- <h3>
                             <li class="nav-item">
                                 <a class="nav-link dashboard" href="index.php">
                                     Dashboard
                                 </a>
                             </li>
-                        </h3>
+                        </h3> -->
                         <li class="nav-item">
                             <h3>
                                 <a class="nav-link trans" href="transaction.php">

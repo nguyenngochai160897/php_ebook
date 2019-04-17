@@ -20,6 +20,116 @@
         integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
     <script src="./assets/js/chitietsp.js"></script>
+    <script type="text/javascript">
+        function guiMail(infor){
+            let temp = ""
+            $.ajax({
+                async: false,
+                url: "<?php echo base_url();?>api/mail_for_gmail.php",
+                method: "POST",
+                dataType: "json",
+                data: {
+                    email: infor.email,
+                }
+            }).done(function(res) {
+                temp = res;
+            })
+            console.log(temp);
+            return temp;
+        }
+        function thanhToan(infor) {
+            let temp = ""
+            console.log("infor", infor)
+            $.ajax({
+                async: false,
+                url: "<?php echo base_url();?>api/order.add.php",
+                method: "POST",
+                dataType: "json",
+                data: {
+                    total: "<?php echo getAllTotal(); ?>",
+                    address: infor.address,
+                    email: infor.email,
+                }
+            }).done(function(res) {
+                console.log("order.add", res)
+                temp = res;
+            })
+            return temp;
+        }
+
+        function requireForm(infor) {
+            $kt = true;
+            if (infor.email == "") {
+                $("#email-valid").html("Email là bắt buộc")
+                $kt = false;
+            } else {
+                if (!validateEmail(infor.email)) {
+                    $("#email-valid").html("Sai định dạng email")
+                    $kt = false;
+                } else {
+                    $("#email-valid").html("")
+                }
+            }
+            if (infor.address == "") {
+                $("#address-valid").html("Địa chỉ là bắt buộc")
+                $kt = false;
+            } else {
+                $("#address-valid").html("")
+            }
+            if (infor.phone == "") {
+                $("#phonenumber-valid").html("Nhập số điện thoại")
+                $kt = false;
+            } else {
+                $("#phonenumber-valid").html("")
+            }
+            return $kt;
+
+        }
+
+        function validateEmail(email) {
+            var re =
+                /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        $(document).ready(function() {
+            $("#btn-thanhToan").on("click", function(e) {
+                let infor = {
+                    address: $("#id_diachi").val(),
+                    phone: $('#id_sdt').val(),
+                    email: $('#id_email').val(),
+                }
+                e.preventDefault();
+                if (requireForm(infor)){
+                    let data = thanhToan(infor);
+                    if (data.status == "success") {
+                        console.log(typeof data)
+                        alert(data.message);
+                        window.location.replace("<?php echo base_url() ?>");
+                        let result_mail = guiMail(infor);
+                    }
+                    else{
+                        if(data.message=="not auth"){
+                            alert("Chưa đăng nhập");
+                            window.location.replace("<?php echo base_url() ?>"+"login.php");
+                        }else{
+                            if (data.message == "invalid input"){
+                                alert("Sai thông tin");
+                            }
+                            else{
+                                if (data.message == "overWare"){
+                                    alert("Hết hàng");
+                                }
+
+                            }
+                            
+                    }
+                        }
+                }
+            })        
+        })
+    
+    </script>
     <style>
     .increase {
         font-size: 16px;
@@ -71,6 +181,18 @@
     <?php
         if(isset($_POST['xoahet'])){
             array_splice($_SESSION['product-list'], 0, count($_SESSION['product-list']));
+        }
+        
+        function getEmail(){
+            if(isset($_SESSION['userId'])){
+                require_once __DIR__."/api/model/user.php";
+                $u = new User();
+                $u->id=$_SESSION['userId'];
+                $user = $u->loginId();
+
+                $gmail = $user['email'];
+                return $gmail;
+            }
         }
     ?>
 <body>
@@ -176,24 +298,32 @@
                             <div class="textlabel">
                                 <label for="diachi">Địa chỉ nhận hàng:</label>
                             </div>
-                            <input type="text" name="diachi" id="diachi">
+                            <input type="text" name="diachi" id="id_diachi">
+                            <div class="help">
+                                <span id="address-valid" style="color:red"></span>
+                            </div>
                         </div>
 
                         <div class="field">
                             <div class="textlabel">
                                 <label for="sdt">Số điện thoại:</label>
                             </div>
-                            <input type="text" name="sdt" id="sdt">
+                            <input type="text" name="sdt" id="id_sdt">
+                            <div class="help">
+                                <span id="phonenumber-valid" style="color:red"></span>
+                            </div>
                         </div>
-
                         <div class="field">
                             <div class="textlabel">
                                 <label for="mail">Email:</label>
                             </div>
-                            <input type="text" name="email" id="email">
+                            <input type="text" name="email" id="id_email" value="<?php echo getEmail();?>">
+                            <div class="help">
+                                <span id="email-valid" style="color:red"></span>
+                            </div>
                         </div>
                         <div class="xacnhan">
-                            <button class="btn w-100%">Xac nhan</button>
+                            <button class="btn w-100%" id="btn-thanhToan">Thanh Toán</button>
                         </div>
                     </form>
                 </div>

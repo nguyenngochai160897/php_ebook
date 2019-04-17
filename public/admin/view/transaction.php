@@ -115,6 +115,9 @@ function updateStatus(id, deliver_status){
             id:id,
             deliver_status: deliver_status
         },
+        success: function(){
+            
+        }
         
     })
 }
@@ -131,10 +134,13 @@ $(document).ready(function() {
         }
         else if($(this).val() == "Failed"){
             updateStatus(id, 3);
+            alert("Deleted "+id)
+
         }
         else if($(this).val() == "Processing"){
             updateStatus(id, 1)
         }
+        getAllTransaction();
     })
     
 })

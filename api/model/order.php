@@ -2,7 +2,7 @@
     require_once __DIR__."/object.php";
     require_once __DIR__."/db.php";
     class Order{
-        public $user_id, $order_date, $deliver_status, $total_price, $id;
+        public $user_id, $order_date, $deliver_status, $total_price, $id, $address;
         public $table = "orders";
 
         // function fetchAll(){
@@ -49,12 +49,14 @@
         }
 
         function create(){
+            $conn = connectDB();
             $query = "INSERT INTO ".$this->table.
                     " SET ". 
                     "user_id = '".$this->user_id."', ".
                     "deliver_status = '".$this->deliver_status."', ".
-                    "total_price = '".$this->total_price."'";
-            $result = mysqli_query($this->conn, $query);
+                    "total_price = '".$this->total_price."', ".
+                    "address = '".$this->address."'";
+            $result = mysqli_query($conn, $query);
             $query = "SELECT id FROM ".$this->table." WHERE user_id=".$this->user_id.
                     " AND status_deliver=0";
             $order_id = mysqli_insert_id($conn);
@@ -108,7 +110,7 @@
         }
         function gets(){
             $conn = connectDB();
-            $query = "SELECT orders.*, users.email, users.phone FROM users, orders WHERE orders.user_id=users.id AND users.account_type!='admin' AND deliver_status!=0";
+            $query = "SELECT orders.*, users.email, users.phone FROM users, orders WHERE orders.user_id=users.id AND users.account_type!='admin' AND deliver_status!=0 ORDER BY orders.id";
             $result = mysqli_query($conn, $query);
             $arr = array();
             if(mysqli_num_rows($result)){
@@ -122,6 +124,7 @@
         function updateStatus(){
             $conn = connectDB();
             if($this->deliver_status==3){
+                echo "sss";
                 $query1="SELECT * FROM `orders_products` where order_id=".$this->id;
                 $arr = [];
                 $result = mysqli_query($conn, $query1);
@@ -132,9 +135,16 @@
                     $query2 = "UPDATE products SET num_existed=num_existed+".$a['num_of_product']." WHERE id=".$a['product_id'];
                     mysqli_query($conn, $query2);
                 }
+
+                $query3="DELETE FROM orders_products WHERE order_id=".$this->id;
+                mysqli_query($conn, $query3);
+                $query4 = "DELETE FROM orders WHERE id=".$this->id;
+                mysqli_query($conn, $query4);
             }
-            $query = "UPDATE orders SET deliver_status=".$this->deliver_status." WHERE id=".$this->id;
-            echo $query;
+            else{
+                $query = "UPDATE orders SET deliver_status=".$this->deliver_status." WHERE id=".$this->id;
+            }
+           
             
             mysqli_query($conn, $query);
             mysqli_close($conn);

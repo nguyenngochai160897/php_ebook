@@ -26,18 +26,45 @@
     <link rel="stylesheet" type="text/css" href="./assets/plugin/OwlCarousel2-2.3.4/owl.carousel.min.css">
     <script src="./assets/plugin/OwlCarousel2-2.3.4/owl.carousel.min.js"></script>
     <style>
-    
+
     </style>
 </head>
 
 <script>
-
 function getBestProduct() {
     $.ajax({
-        url: "<?php echo base_url();?>api/product.php?best=",
-        dataType: "json",
+        url: "<?php echo base_url();?>api/bestProduct.php",
         method: "GET",
-    }).done(function(res) {})
+        dataType: "json",
+    }).done(function(data) {
+        console.log(data)
+        let html = "";
+        data.forEach(element => {
+            console.log(element)
+            html +=
+                '<div class="productcontainer">' +
+                    '<div class="motproduct">' +
+                        '<div class="products">' +
+                        '<div class="image">' +
+                            '<a href="./chitietsp.php?id=' + element.id +
+                            '" ><img src="<?php echo base_url();?>uploads/' + element.picture + '"></a>' +
+                        '</div>' +
+                        ' <div class="productname">' +
+                        '<a href="./chitietsp.php?id=' + element.id + '">' + element.title + '</a>' +
+                        '</div>' +
+                        '<div class="fields">' +
+                        element.author_name +
+                        '</div>' +
+                        '<div class="prices">' +
+                        element.price + '₫' +
+                        '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+
+        })
+        $(".show-best-product").html(html)
+    })
 }
 
 function getNewProduct() {
@@ -80,7 +107,7 @@ function getNewProduct() {
 $(document).ready(function() {
     getBestProduct();
     getNewProduct();
-    
+
 })
 </script>
 
@@ -127,13 +154,14 @@ $(document).ready(function() {
                         <h2>
                             <a href="" class="titlecon">Sách mới</a>
                             <i class="fas fa-caret-right"></i>
-                            <a href="" class="xemtatca">Xem tất cả</a>
+                            <!-- <a href="" class="xemtatca">Xem tất cả</a> -->
                         </h2>
                     </div> <!-- het title -->
                     <div class="clear" style="clear:both;"></div>
 
                     <div class="blockcontent">
-                        <div class="slideshow" id="slideshows" style="left: 5px; transition: all 0.5s ease 0s;">
+                        <div class="slideshow show-best-product" id="slideshows"
+                            style="left: 5px; transition: all 0.5s ease 0s;">
                             <div class="productcontainer">
                                 <div class="motproduct">
                                     <div class="products">
@@ -340,13 +368,13 @@ $(document).ready(function() {
                         <h2>
                             <a href="" class="titlecon">Sách bán chạy</a>
                             <i class="fas fa-caret-right"></i>
-                            <a href="" class="xemtatca">Xem tất cả</a>
+                            <!-- <a href="" class="xemtatca">Xem tất cả</a> -->
                         </h2>
                     </div> <!-- het title -->
                     <div class="clear" style="clear:both;"></div>
 
                     <div class="blockcontent">
-                        <div class="slideshow">
+                        <div class="slideshow show-best-product">
                             <div class="productcontainer">
                                 <div class="motproduct">
                                     <div class="products">

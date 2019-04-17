@@ -92,6 +92,24 @@
             }
         }
 
+        function loginId(){
+            $conn = connectDB();
+            $query = "SELECT * FROM ".$this->table." WHERE id = '".$this->id."'";
+            $result = mysqli_query($conn, $query);
+            
+            if(mysqli_num_rows($result) == 0){
+                return (array(
+                    "status" => "fail",
+                    "message" => "The email did not exist"
+                ));
+            }
+            else{
+                $row = mysqli_fetch_assoc($result);
+                mysqli_close($conn);
+                return $row;
+            }
+        }
+
     }
 
 ?>

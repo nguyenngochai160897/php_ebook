@@ -100,6 +100,8 @@
             if (data.status == "success") {
                 alert("Đăng ký thành công")
 				$("#email-valid").html("")
+                window.location = "<?php echo base_url();?>login.php"
+
             }
 			else{
                 if(data.message!="invalid input")

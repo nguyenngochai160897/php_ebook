@@ -99,13 +99,14 @@
         }
 
         public function getBestProduct(){
-            $query = "SELECT products.*, SUM(num_of_product) as total FROM orders_products, products GROUP BY product_id ORDER BY total DESC";
+            $query = "SELECT products.*, SUM(orders_products.num_of_product) as total FROM orders_products, products where orders_products.product_id = products.id GROUP BY orders_products.product_id ORDER BY total DESC LIMIT 0, 10";
             $conn = connectDB();
             $result = mysqli_query($conn, $query);
             $arr = array();
             if(mysqli_num_rows($result) > 0){
-                $row = mysqli_fetch_assoc($result);
-                array_push($arr, $row);
+                while($row = mysqli_fetch_assoc($result)){
+                    array_push($arr, $row);
+                }
             }
             mysqli_close($conn);
             return $arr;
@@ -137,7 +138,7 @@
         }
 
         function searchProduct($search){
-            $query = "SELECT * FROM products WHERE products.picture like '%".$search."%' LIMIT 0,5";
+            $query = "SELECT * FROM products WHERE products.picture like '".$search."%' OR products.title like '".$search."%' LIMIT 0,5";
             $conn = connectDB();
             $result = mysqli_query($conn, $query);
             $arr = [];

@@ -44,6 +44,7 @@
             method:"GET",
             dataType:"json",
         }).done(function(data) {
+            console.log(data)
             let html="";
             data.forEach((element, index) => {
                 html+='<div class="productcontainer">'+
@@ -66,7 +67,7 @@
                         ' </div>' ;
             })
             $(".allproducts").html(html)
-            $(".category-name").html(data[0].name)
+            $(".category-name").html(data[0].category_name)
             $("#head-title").html(data[0].name)
         })
     }

@@ -19,8 +19,8 @@ $(document).ready(function() {
 });
 </script>
 
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-5 mt-5">
-    <table class="table table-bordered text-center">
+<!-- <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-5 mt-5"> -->
+    <!-- <table class="table table-bordered text-center">
         <thead class="thead-dark">
             <tr>
                 <th scope="col" width="5%">#</th>
@@ -67,7 +67,7 @@ $(document).ready(function() {
         </tbody>
     </table>
 
-</main>
+</main> -->
 
 <?php
     require_once __DIR__."/footer.php";

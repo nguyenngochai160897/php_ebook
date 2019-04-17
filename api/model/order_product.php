@@ -14,7 +14,7 @@
                         "num_of_product=".$this->num_of_product.", ".
                         "price=".$this->price;
             $result = mysqli_query($conn, $query);
-            echo $result;
+            // echo $result;
             mysqli_close($conn);
         }
 

@@ -74,11 +74,11 @@ $(document).ready(function() {
         requireForm(user)
         let data = login(user)
         if (data.status == "success") {
-            alert("Dang nhap thành công")
+            alert("Đăng nhập thành công")
             window.location = "<?php echo base_url();?>"
         } else {
             if(data.message!="invalid input"){
-                alert("Sai thong tin dang nhap")
+                alert("Sai thông tin đăng nhập")
             }
         }
     })

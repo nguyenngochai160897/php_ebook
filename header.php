@@ -1,5 +1,7 @@
 <?php
     require_once __DIR__."/config/helper.php";
+    require_once __DIR__."/api/model/user.php";
+    require_once __DIR__."/api/controller/user.php";
     sessionStart();
     
     function showAmountCart(){
@@ -28,8 +30,38 @@
         }
         return $html;
     }
-    
+    function checkLogin(){
+        $html = '<a href="./login.php" title="" class="login"><i class="fa fa-user text-18"></i><span>Đăng nhập</span></a>';
+        sessionStart();
+        if (checkSession() == "customer"){
+            $data = (new user())->gets();
+            foreach($data as $d){
+                if ($d['id'] == $_SESSION['userId']) 
+                    $user = $d;
+            }
+            
+            $html = '<i class="fa fa-user text-18"></i> '.$user['first_name'].'<span class="glyphicon glyphicon-log-out"></span>';
+        }
+        return $html;
+    }
+    function logout(){
+        $html="";
+        if (checkSession() == "customer"){
+            $data = (new user())->gets();
+            foreach($data as $d){
+                if ($d['id'] == $_SESSION['userId']) 
+                    $user = $d;
+            }
+            
+            $html = '<a href="./logout.php" style="color:white">Logout</a>';
+        }
+        return $html;
+    }
+  
 ?>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 <div class="header">
     <div class="top-header">
         <div class="container">
@@ -66,11 +98,11 @@
                 </div>
 
                 <div class="col-3">
-                    <div class="login">
-                        <a href="./login.php" title="" class="login"><i class="fa fa-user text-18"></i><span>Đăng
-                                nhập</span></a>
+                    <div class="login" style="padding-left: 0px">
+                        <?php echo checkLogin(); ?>
                         <a href="./cart.php" title="" class="giohang">Giỏ hàng <span>(<?php echo showAmountCart();?>)</span><i
                                 class="fas fa-sort-down"></i></a>
+
                         <div id="show-small-shop-cart" class="position-absolute p-1">
                             <!-- <a class="row" href="#">
                                 <img src="<?php echo base_url();?>uploads/21-chien-luoc-marketing-hang-dau__74151_thum_135.jpg" class="col-3">
@@ -94,6 +126,7 @@
                 </div>
 
             </div>
+            <div class="float-right position-absolute" style="top:20px; right:70px"><?php echo logout();?></div>
         </div>
     </div>
     <div class="bottom-header">
@@ -171,7 +204,7 @@ function searchProduct(value) {
             $("#show-search-product").removeClass("d-none")
             res.forEach(function(element, index) {
                 html += '<div class="small-product">' +
-                    '<a href="#" class="row">' +
+                    '<a href="./chitietsp.php?id='+element.id+'" class="row">' +
                     '<div class="col-2 image">' +
                     '<img src="<?php echo base_url();?>uploads/' + element.picture + '"/>' +
                     '</div>' +
@@ -191,6 +224,7 @@ function searchProduct(value) {
 
 $(document).ready(function() {
     getAllCategories();
+     
     $(".btntimkiem").on("click", function(e) {
         e.preventDefault();
         let search = $("#search").val();

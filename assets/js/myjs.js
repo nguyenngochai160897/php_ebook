@@ -65,3 +65,23 @@ function topFunction() {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
 }
+
+function reverse(s){
+	return s.split("").reverse().join("");
+}
+
+function showPrice(price){
+	let str="";
+	price = reverse(price);
+	let dem=0;
+	for(let i=0; i<price.length;i++){
+			dem++;
+			if(dem%3==0){
+					str+=price.charAt(i)+".";
+			}
+			else{
+					str+=price.charAt(i)
+			}
+	}
+	return str;
+}

@@ -82,6 +82,7 @@
             method: "GET",
             dataType: "json",
         }).done(function(res) {
+            console.log(res.record)
             let data = res.record;
             if (data.length == 0) {
                 //San pham ko co san 
@@ -95,14 +96,14 @@
             }
             data = data[0];
             let path = '<li><a href="./">Trang chủ</a></li>' +
-                '<li><a href="#">' + data.category_name + '</a></li>' +
+                '<li><a href="./getAllProductByCategory.php?id='+data.category_id+'">' + data.category_name + '</a></li>' +
                 '<li>' + data.title + '</li>';
             $(".path").html(path);
             $(".left img").attr("src", "<?php echo base_url();?>uploads/" + data.picture)
             $(".product-infor h1").html(data.title)
             $(".tacgia a").html(data.author_name)
             $(".phathanh a").html(data.publisher_name)
-            $(".price").html(data.price + " ₫")
+            $(".price").html((data.price) + " ₫")
             $("#noidung p").html(data.description)
             $(".p-image img").attr("src", "<?php echo base_url();?>uploads/" + data.picture)
             $(".p-name a").html(data.title)
@@ -110,6 +111,10 @@
             $("input[name='product-picture']").val(data.picture)
             $("input[name='product-price']").val(data.price)
             $("input[name='product-existed']").val(data.num_existed)
+            if(data.num_existed ==0){
+                $(".addCart").addClass("d-none");
+                $(".goshop h5").removeClass("d-none")
+            }
         })
     }
     $("document").ready(function() {
@@ -163,8 +168,9 @@
                                         <input type="text" class="d-none" name="product-picture">
                                         <input type="text" class="d-none" name="product-price">
                                         <input type="text" class="d-none" name="product-existed">
-                                        <button type="submit" class="btn btn-primary"
-                                            style="margin-left:200px;margin-top:10px">Them vao gio hang</button>
+                                        <button type="submit" class="btn btn-primary addCart"
+                                            style="margin-left:200px;margin-top:10px">Thêm giỏ hàng</button>
+                                        <h5 style="color:white; border: 1px solid red; background:red; padding: 5px 10px; border-radius: 5px" class="d-none">Hết hàng</h5>
                                     </form>
                                 </div>
                             </div> <!-- het prices-container -->
